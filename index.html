@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Upload, organize, and browse pictures in photo albums." />
+  <title>Album Studio — Photo Upload</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%B7%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="app-header">
+    <div class="app-header__brand">
+      <span class="app-header__logo" aria-hidden="true">📷</span>
+      <div>
+        <h1 class="app-header__title">Album Studio</h1>
+        <p class="app-header__subtitle">Upload &amp; organize your pictures</p>
+      </div>
+    </div>
+    <div class="app-header__actions">
+      <button id="newAlbumBtn" class="btn btn--ghost" type="button">
+        <span aria-hidden="true">＋</span> New album
+      </button>
+      <button id="themeToggle" class="btn btn--icon" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar: album list -->
+    <aside class="sidebar" aria-label="Albums">
+      <div class="sidebar__head">
+        <h2 class="sidebar__title">Albums</h2>
+        <span id="albumCount" class="badge" aria-label="Number of albums">0</span>
+      </div>
+      <ul id="albumList" class="album-list" role="list"></ul>
+    </aside>
+
+    <main id="main" class="content">
+      <!-- Active album header -->
+      <section class="album-bar" aria-live="polite">
+        <div class="album-bar__info">
+          <h2 id="activeAlbumName" class="album-bar__name">Loading…</h2>
+          <p id="activeAlbumMeta" class="album-bar__meta">—</p>
+        </div>
+        <div class="album-bar__tools">
+          <input
+            id="searchInput"
+            class="input input--search"
+            type="search"
+            placeholder="Search photos…"
+            aria-label="Search photos by name"
+            autocomplete="off"
+          />
+          <button id="renameAlbumBtn" class="btn btn--ghost btn--sm" type="button">Rename</button>
+          <button id="deleteAlbumBtn" class="btn btn--danger btn--sm" type="button">Delete album</button>
+        </div>
+      </section>
+
+      <!-- Dropzone -->
+      <section
+        id="dropzone"
+        class="dropzone"
+        tabindex="0"
+        role="button"
+        aria-label="Upload pictures. Click to browse or drag and drop image files here."
+      >
+        <input id="fileInput" class="visually-hidden" type="file" accept="image/*" multiple />
+        <div class="dropzone__inner">
+          <div class="dropzone__icon" aria-hidden="true">⬆️</div>
+          <p class="dropzone__title">Drag &amp; drop pictures here</p>
+          <p class="dropzone__hint">or <span class="dropzone__link">click to browse</span> · JPG, PNG, GIF, WebP, AVIF · up to 25&nbsp;MB each</p>
+        </div>
+      </section>
+
+      <!-- Upload queue / progress -->
+      <section id="uploadQueue" class="upload-queue" hidden aria-label="Upload progress"></section>
+
+      <!-- Gallery -->
+      <section class="gallery-wrap">
+        <div id="emptyState" class="empty-state" hidden>
+          <div class="empty-state__art" aria-hidden="true">🖼️</div>
+          <h3 class="empty-state__title">No pictures yet</h3>
+          <p class="empty-state__text">Add your first photos using the upload area above.</p>
+        </div>
+        <ul id="gallery" class="gallery" role="list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button id="lbClose" class="lightbox__btn lightbox__close" type="button" aria-label="Close">✕</button>
+    <button id="lbPrev" class="lightbox__btn lightbox__prev" type="button" aria-label="Previous photo">‹</button>
+    <figure class="lightbox__figure">
+      <img id="lbImage" class="lightbox__image" alt="" />
+      <figcaption id="lbCaption" class="lightbox__caption"></figcaption>
+    </figure>
+    <button id="lbNext" class="lightbox__btn lightbox__next" type="button" aria-label="Next photo">›</button>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toasts" class="toasts" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Hidden card template -->
+  <template id="photoCardTemplate">
+    <li class="photo-card" role="listitem">
+      <button class="photo-card__thumb-btn" type="button" aria-label="View photo">
+        <img class="photo-card__thumb" alt="" loading="lazy" />
+      </button>
+      <div class="photo-card__overlay">
+        <span class="photo-card__name"></span>
+        <span class="photo-card__size"></span>
+      </div>
+      <button class="photo-card__delete" type="button" aria-label="Delete photo" title="Delete">🗑</button>
+    </li>
+  </template>
+
+  <script src="assets/db.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "album-studio",
+  "version": "1.0.0",
+  "description": "A front end for uploading and organizing pictures in photo albums.",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "photos",
+    "album",
+    "upload",
+    "gallery",
+    "frontend"
+  ],
+  "license": "MIT",
+  "private": true
+}
