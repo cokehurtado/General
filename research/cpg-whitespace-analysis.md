@@ -3,7 +3,7 @@
 
 *Research date: July 2026. Compiled from five parallel research threads (Bloom case study; supplements & functional F&B; personal care & beauty; pet/household/kids/food; channel economics & M&A), each with source-linked, confidence-flagged findings. All market figures come from cited syndicated research and trade press; ranges are shown where sources conflict.*
 
-> **Note on personalization:** No details about the author's professional background were available at research time, so Section 6 maps each opportunity to the professional profile that gives the strongest edge. Match it to your own experience.
+> **Note on personalization:** Section 6 maps each opportunity to generic founder profiles; **Appendix B** applies the analysis to the author's actual background (~10 years at P&G across trade marketing/Walmart, Female Care brand & sales, Fabric Care, Baby Care, marketing/media direction; Chile and Panama based).
 
 ---
 
@@ -220,3 +220,45 @@ This report synthesizes five source-linked research threads compiled in July 202
 5. **Structural economics** — TikTok Shop GMV and divestiture resolution, affiliate/CAC benchmarks, MOQ and launch-cost ranges, retail margin/velocity/slotting math, exit-spec pattern, headwinds, and failure modes.
 
 Market-size figures come from syndicated research firms with varying methodologies — ranges are shown where sources conflicted. Private-company revenue figures are trade-press estimates unless tied to SEC filings or company press releases. Competitive-state conclusions reflect mid-2026 and can shift with a single viral cycle; re-verify the "no dominant challenger" test for any lane before committing capital.
+
+---
+
+## Appendix B: Founder-Fit Addendum (P&G Multifunctional Marketer, LatAm-Based)
+
+**Profile:** ~10 years at P&G — Trade Marketing Manager Hair Care & Walmart (2y), Brand & Sales Manager Female Care (2y), Senior Brand Manager Fabric Care and Baby Care (~2y combined), Marketing Director for Media/Corporate Comms/Trade Marketing (2y), Fabric Care Director (1y), currently Pacific (Chile/Colombia/Peru) Media Director, Panama-based.
+
+### Strengths this profile brings to the playbook
+
+1. **Full commercial stack** — brand positioning, P&L ownership, sales, trade marketing, and media direction in one person. Most founder archetypes have one of these muscles.
+2. **Trade marketing + Walmart account experience is the rarest founder asset in this space.** Premature/mismanaged retail is the #1 killer of viral CPG brands (velocity floors, 15–25% trade spend, 5–15% deductions). This founder knows that math professionally; creator-founders learn it by dying from it.
+3. **Direct category P&L experience in four of the ten ranked lanes:** Female Care → perimenopause (#3); Hair Care → scalp (#10); Baby Care → kids' hydration (#7); Fabric Care → premium home care (honorable mention, elevated below).
+4. **Media directorship** — disciplined CAC management, agency management, media-mix economics.
+5. **LatAm networks and consumer knowledge** — retail relationships (Walmart Chile, regional chains), distributor familiarity, Spanish-language brand instincts.
+
+### Honest gaps
+
+1. **No personal audience** — Bloom's non-replicable asset. Nearest substitutes: building in a community authentically inhabited, plus a content-native co-founder or first hire.
+2. **Big-media ≠ creator-seeding marketing.** The phase-one engine (TikTok Shop, thousands of micro-affiliates, scrappy UGC) is adjacent to P&G marketing but a different muscle.
+3. **Corporate-scale instincts** (perfect packaging, big launches) are dangerous at the $50K-MOQ stage — phase one should be run deliberately "ugly."
+4. **If targeting the US:** Walmart Chile relationships don't transfer to Bentonville; US entity/3PL/partner needed.
+
+### Narrowed shortlist for this profile
+
+| Priority | Lane | Fit rationale |
+|---|---|---|
+| **1** | **Perimenopause / women's midlife wellness** (#3) | Female Care brand + sales is precisely this lane's hardest skill: marketing intimate, semi-taboo women's health to women, with claims discipline and aisle strategy. Converts the category's main difficulty into home turf. |
+| **2** | **Premium scent-forward home care** (elevated from honorable mention) | Fabric Care directorship = deep knowledge that laundry is bought on fragrance (especially in LatAm). Nobody owns "luxury-scented non-toxic cleaning"; household is the lane where retail execution (this founder's edge) matters most and DTC matters least. |
+| **3** | **Kids' healthy hydration** (#7) | Baby Care experience = understands the parent-as-buyer; lane genuinely unowned. Third priority: thinner category base (18 months) and food/bev regulatory friction. |
+| Deprioritized | Textured-hair scalp (#10) | Hair Care experience was trade-side, and the lane demands community authenticity that cannot be manufactured. |
+
+### The geography decision
+
+- **US-first:** biggest exits and the TikTok Shop engine, but the retail edge doesn't transfer and the creator-ops gap is most exposed.
+- **LatAm-first (Mexico, not Chile, is the serious option):** TikTok Shop live in Mexico since 2025, Mercado Libre as second channel, founder edge at full strength. Trade-offs: smaller exit multiples, per-country regulatory fragmentation (COFEPRIS, ISP, INVIMA). Acquirers exist: Genomma Lab, Natura, LatAm arms of Unilever/Nestlé, regional PE.
+- **US-Hispanic bridge (recommended for serious consideration):** ~$23B US Hispanic beauty/wellness spend, Latinas outspending by 37%, no challenger scaled past ~$50M. A Spanish-first, culturally authentic brand — built by a Latin American operator, manufactured in Mexico, sold via TikTok Shop/Amazon into the US — combines authenticity with US exit economics.
+
+### Recommendation
+
+**Perimenopause wellness for the Latina 40+ consumer, US-Hispanic + Mexico first.** Three stacked wedges: an underserved category (perimenopause), an underserved demographic within it (Hispanic women, culturally unaddressed by O Positiv/Stripes/Womaness), and the founder's single deepest professional asset (Female Care brand + sales). Conservative alternative: premium fragrance-led home care in LatAm — deeper moat, lower exit ceiling; the better pick only if remaining LatAm-focused is a hard constraint.
+
+**Sequencing implication:** unlike the typical creator-founder, treat phase one (TikTok/DTC validation) as the phase to hire or partner for, and phases two and three (retail entry, trade economics, scaling) — where this profile outperforms every competitor in the lane — as the founder's personal domain.
