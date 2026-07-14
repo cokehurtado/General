@@ -123,12 +123,13 @@ Capa de entrada de datos con dos vías, ambas corren sin red ni API key:
 
 **1. Automática y legal** — fuentes limpias vía adapter, corren en el scheduler:
 - `AuctionResultsSource`: resultados públicos de subastas (precios de **cierre** → calibran fair value). Incremental por fecha, idempotente.
+- `EbaySource`: **API oficial de eBay (Browse)** — listings activos comprables (record_type `offer`). Vía legal y estable (no scraping). Online con `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET`; sin credenciales, corre en **modo offline** con `fixtures/ebay_sample.json` para probar el parseo sin red. Extrae la referencia del título con el parser de reglas.
 - Scheduler con **circuit breaker** por fuente: si una empieza a fallar, se abre y deja de golpearla hasta el cooldown.
 - Raw store inmutable (SQLite stdlib): guarda el crudo, deduplica por `(source, external_id)`, detecta cambios de precio (SCD), y lleva el cursor incremental de cada fuente.
 
 **2. Semi-automática sin riesgo** — el extractor **pega-el-texto**:
 - Tú traes el deal (Instagram, WhatsApp, dealer, donde sea), lo pegas, y `RuleBasedExtractor` saca ref, precio, caja/papeles, año y marca → lo pasa por el motor de arbitraje. Automatiza el *análisis*, no la obtención. Cero scraping.
-- `ClaudeExtractor` es un **stub**: enchufas la Claude API cuando quieras más precisión en texto ambiguo (no requiere credenciales hoy).
+- `ClaudeExtractor` usa la **Claude API real** (SDK oficial, import perezoso → el núcleo sigue sin dependencias) para texto ambiguo/informal, con salida estructurada por JSON schema. Actívalo con `THE_COTE_LLM_EXTRACTOR=1` + `ANTHROPIC_API_KEY` (modelo por defecto `claude-opus-4-8`; `claude-haiku-4-5` es la opción de menor costo). `FallbackExtractor` cae al parser de reglas ante cualquier error, así que nunca se rompe.
 
 **Sitios protegidos = gate legal.** `Chrono24Source` y `WatchChartsSource` existen como adapters **deshabilitados**: la arquitectura está lista, pero no corren hasta que haya una vía legítima (API/partner o feed licenciado). Ver §"Riesgos legales" abajo.
 

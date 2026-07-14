@@ -1,0 +1,33 @@
+{
+  "href": "https://api.ebay.com/buy/browse/v1/item_summary/search",
+  "total": 3,
+  "itemSummaries": [
+    {
+      "itemId": "v1|1234567890|0",
+      "title": "Rolex Explorer 36 124270 2023 Full Set Box and Papers Unworn",
+      "price": {"value": "6450.00", "currency": "USD"},
+      "condition": "New with tags",
+      "itemWebUrl": "https://www.ebay.com/itm/1234567890",
+      "image": {"imageUrl": "https://i.ebayimg.com/images/g/abc/s-l500.jpg"},
+      "seller": {"username": "luxwatch_dealer", "feedbackPercentage": "99.6", "feedbackScore": 1820}
+    },
+    {
+      "itemId": "v1|2233445566|0",
+      "title": "Rolex Submariner Date 126610LN 2021 box only excellent condition",
+      "price": {"value": "12900.00", "currency": "USD"},
+      "condition": "Pre-owned",
+      "itemWebUrl": "https://www.ebay.com/itm/2233445566",
+      "image": {"imageUrl": "https://i.ebayimg.com/images/g/def/s-l500.jpg"},
+      "seller": {"username": "vintage_timepieces", "feedbackPercentage": "98.1", "feedbackScore": 410}
+    },
+    {
+      "itemId": "v1|9988776655|0",
+      "title": "Omega Speedmaster Moonwatch 310.30.42 full set 2022 mint",
+      "price": {"value": "5200.00", "currency": "USD"},
+      "condition": "Pre-owned",
+      "itemWebUrl": "https://www.ebay.com/itm/9988776655",
+      "image": {"imageUrl": "https://i.ebayimg.com/images/g/ghi/s-l500.jpg"},
+      "seller": {"username": "speedy_seller", "feedbackPercentage": "100.0", "feedbackScore": 95}
+    }
+  ]
+}

@@ -14,6 +14,7 @@
 
 from __future__ import annotations
 
+import os
 import sys
 
 from ..arbitrage import evaluate
@@ -23,14 +24,20 @@ from .normalize import payload_to_listing
 from .raw_store import RawStore
 from .scheduler import Scheduler
 from .sources.auction_feed import AuctionResultsSource
+from .sources.ebay import EbaySource
 from .sources.paste_source import PasteSource
 from .sources.protected import Chrono24Source, WatchChartsSource
+
+_EBAY_FIXTURE = os.path.join(os.path.dirname(__file__), "..", "..", "fixtures", "ebay_sample.json")
 
 
 def _run_scheduled() -> None:
     store = RawStore(":memory:")
     sched = Scheduler(store)
-    sources = [AuctionResultsSource(), Chrono24Source(), WatchChartsSource()]
+    # eBay: online si hay EBAY_CLIENT_ID/SECRET; si no, modo offline con la fixture.
+    ebay = EbaySource() if (os.getenv("EBAY_CLIENT_ID") and os.getenv("EBAY_CLIENT_SECRET")) \
+        else EbaySource(offline_fixture=_EBAY_FIXTURE)
+    sources = [AuctionResultsSource(), ebay, Chrono24Source(), WatchChartsSource()]
 
     print("\nThe Cote Solo · ingesta automatizada (tick del scheduler)\n" + "=" * 74)
     for rep in sched.run_all(sources):
@@ -63,6 +70,21 @@ def _run_scheduled() -> None:
             print(f"  {ref:<12}{('$'+format(inst.base_fair_value_usd,',.0f')):>10}"
                   f"{('$'+format(fv,',.0f')):>12}{(('%+.1f' % delta)+'%'):>8}   {n}")
     print("\nEl fair value ya no es semilla: usa tus cierres reales (doc 07).\n")
+
+    # Ofertas activas ingestadas (eBay) → escaneadas como arbitraje, con fair value calibrado.
+    offers = list(store.records("offer"))
+    if offers:
+        print(f"{len(offers)} ofertas activas ingestadas → escaneo de arbitraje:\n")
+        for rec in offers:
+            listing = payload_to_listing(rec["source"], rec["external_id"], rec["payload"])
+            if listing is None or listing.ref not in UNIVERSE:
+                continue
+            o = evaluate(UNIVERSE[listing.ref], listing, ImportCostConfig.zlc_reexport(), sales=book)
+            inst = UNIVERSE[listing.ref]
+            print(f"  [{o.verdict:<12}] {inst.brand} {inst.name:<26} "
+                  f"${listing.price_usd:>8,.0f}  neto {o.net_edge:+.1%}  "
+                  f"({'calibrado' if o.priced.calibrated else 'seed'}) · {rec['source']}")
+        print()
     store.close()
 
 

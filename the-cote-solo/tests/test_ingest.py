@@ -112,8 +112,9 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual(listing.ref, "124270")
         self.assertEqual(listing.price_usd, 6300)
 
-    def test_claude_extractor_is_stub(self):
-        with self.assertRaises(NotImplementedError):
+    def test_claude_extractor_needs_sdk_or_client(self):
+        # ya no es stub: sin SDK/cliente da un error claro (ver test_ebay_and_llm para el happy path)
+        with self.assertRaises(RuntimeError):
             ClaudeExtractor().extract("cualquier texto")
 
     def test_content_hash_stable(self):
