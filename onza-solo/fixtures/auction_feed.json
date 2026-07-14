@@ -1,0 +1,54 @@
+[
+  {
+    "external_id": "phillips-gwaxv-lot-12",
+    "ref": "116500LN",
+    "hammer_usd": 28400,
+    "condition": "Excellent, full set",
+    "box": true,
+    "papers": true,
+    "year": 2021,
+    "house": "Phillips",
+    "sale": "Geneva Watch Auction XV",
+    "sold_date": "2024-05-11",
+    "url": "https://example-auctions.com/phillips/gwaxv/12"
+  },
+  {
+    "external_id": "christies-2024-lot-88",
+    "ref": "126710BLRO",
+    "hammer_usd": 19200,
+    "condition": "Mint",
+    "box": true,
+    "papers": true,
+    "year": 2022,
+    "house": "Christie's",
+    "sale": "Rare Watches New York",
+    "sold_date": "2024-06-04",
+    "url": "https://example-auctions.com/christies/2024/88"
+  },
+  {
+    "external_id": "sothebys-2024-lot-201",
+    "ref": "5711/1A",
+    "hammer_usd": 92000,
+    "condition": "Excellent",
+    "box": true,
+    "papers": false,
+    "year": 2019,
+    "house": "Sotheby's",
+    "sale": "Important Watches",
+    "sold_date": "2024-06-20",
+    "url": "https://example-auctions.com/sothebys/2024/201"
+  },
+  {
+    "external_id": "phillips-hk-lot-45",
+    "ref": "15500ST",
+    "hammer_usd": 41000,
+    "condition": "Very good",
+    "box": true,
+    "papers": true,
+    "year": 2020,
+    "house": "Phillips",
+    "sale": "Hong Kong Watch Auction",
+    "sold_date": "2024-07-02",
+    "url": "https://example-auctions.com/phillips/hk/45"
+  }
+]

@@ -98,11 +98,46 @@ python -m onza_solo.scan            # corre el scanner sobre los fixtures e impr
 python -m unittest discover tests   # corre los tests
 ```
 
+## Ingesta automatizada (`onza_solo/ingest/`)
+
+Capa de entrada de datos con dos vías, ambas corren sin red ni API key:
+
+**1. Automática y legal** — fuentes limpias vía adapter, corren en el scheduler:
+- `AuctionResultsSource`: resultados públicos de subastas (precios de **cierre** → calibran fair value). Incremental por fecha, idempotente.
+- Scheduler con **circuit breaker** por fuente: si una empieza a fallar, se abre y deja de golpearla hasta el cooldown.
+- Raw store inmutable (SQLite stdlib): guarda el crudo, deduplica por `(source, external_id)`, detecta cambios de precio (SCD), y lleva el cursor incremental de cada fuente.
+
+**2. Semi-automática sin riesgo** — el extractor **pega-el-texto**:
+- Tú traes el deal (Instagram, WhatsApp, dealer, donde sea), lo pegas, y `RuleBasedExtractor` saca ref, precio, caja/papeles, año y marca → lo pasa por el motor de arbitraje. Automatiza el *análisis*, no la obtención. Cero scraping.
+- `ClaudeExtractor` es un **stub**: enchufas la Claude API cuando quieras más precisión en texto ambiguo (no requiere credenciales hoy).
+
+**Sitios protegidos = gate legal.** `Chrono24Source` y `WatchChartsSource` existen como adapters **deshabilitados**: la arquitectura está lista, pero no corren hasta que haya una vía legítima (API/partner o feed licenciado). Ver §"Riesgos legales" abajo.
+
+```bash
+python -m onza_solo.ingest.run                          # tick del scheduler (subastas)
+python -m onza_solo.ingest.run --paste "GMT 126710BLRO USD 16800 full set 2022"   # pega-el-texto
+```
+
+Distinción de diseño: `record_type='sale'` (cierres, calibran fair value) vs `record_type='offer'` (anuncios comprables, se escanean como arbitraje).
+
+## Riesgos legales del scraping de sitios protegidos
+
+Por qué Chrono24/WatchCharts van detrás de un gate y no como scraper (no es asesoría legal; validar con abogado en PA/UE/EE.UU.):
+1. **Incumplimiento de contrato (ToS):** prohíben el acceso automatizado.
+2. **Acceso no autorizado (CFAA/equivalentes):** raspar datos públicos suele ser tolerable, pero romper login o anti-bot cruza la línea.
+3. **Derecho *sui generis* de bases de datos (UE) y copyright de fotos.**
+4. **Competencia desleal / free-riding** (fuerte en Alemania — sede de Chrono24).
+5. **Circunvención de CAPTCHA/anti-bot** (DMCA §1201 y equivalentes) — el filo más peligroso.
+6. **GDPR:** los anuncios traen datos personales de residentes UE.
+
+La vía defendible: APIs oficiales + subastas públicas + feeds licenciados + el dato propio (tus cierres) y give-to-get con dealers. Ese es el moat que nadie te demanda.
+
 ## Datos: de dónde vienen (y el paso siguiente)
 
 - **Fuentes elegidas para v0:** Chrono24 + resultados de subastas + WatchCharts (benchmark). Las más limpias legal y estadísticamente.
 - **Estado actual:** el núcleo corre con `fixtures/listings.json` (datos de ejemplo) y un universo *seed* con valores **ilustrativos** — el valor de v0 es el **método**, no los números semilla.
-- **Paso siguiente (deliberado):** la ingesta en vivo (scraping/feeds) se construye aparte porque tiene aristas legales (ToS, rate limits) que conviene revisar con criterio antes de encenderla. El núcleo ya está listo para recibir listings reales sin cambios de arquitectura.
+- **Ya construido:** la capa de ingesta (`onza_solo/ingest/`) con la vía híbrida (subastas + pega-el-texto) y los sitios protegidos tras el gate legal.
+- **Paso siguiente:** (a) cablear los cierres ingestados al motor de pricing (que hoy usa `base_fair_value` estático del universo) para que el fair value se calibre con datos reales; (b) conectar la Claude API real en `ClaudeExtractor`; (c) sumar un adapter de API oficial (eBay Browse) para listings activos.
 
 ## Advertencia honesta
 
