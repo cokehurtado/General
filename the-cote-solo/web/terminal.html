@@ -10,25 +10,14 @@
     --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
-  @media (prefers-color-scheme:dark){:root{
-    --bg:#0C1219; --bg2:#0F1620; --panel:#141C27; --panel2:#10171F; --raised:#1A2430;
-    --hairline:#263241; --ink:#E9ECF1; --ink2:#C0C8D2; --muted:#8791A0; --faint:#586576;
-    --gold:#7C97B4; --gold2:#AEC4DC;
-    --buy:#4FB07A; --buy-bg:#4FB07A16; --warn:#D6A44A; --warn-bg:#D6A44A16;
-    --danger:#E0654E; --danger-bg:#E0654E14; --pos:#4FB07A; --neg:#E0654E;
-  }}
+  /* Identidad fijada en claro (crema + navy del logo), sin importar el tema del visor. */
   :root[data-theme="light"]{
     --bg:#F1EEE7; --bg2:#E9E5DB; --panel:#FBFAF5; --panel2:#F3F0E8; --raised:#FFFFFF;
     --hairline:#E1DCCF; --ink:#1D2C3E; --ink2:#3E4A59; --muted:#6C7180; --faint:#A6A395;
     --gold:#34506E; --gold2:#5E7EA0; --buy:#1E9E5A; --buy-bg:#1E9E5A12; --warn:#A87A18;
     --warn-bg:#A87A1814; --danger:#C6462E; --danger-bg:#C6462E10; --pos:#1E9E5A; --neg:#C6462E;
   }
-  :root[data-theme="dark"]{
-    --bg:#0C1219; --bg2:#0F1620; --panel:#141C27; --panel2:#10171F; --raised:#1A2430;
-    --hairline:#263241; --ink:#E9ECF1; --ink2:#C0C8D2; --muted:#8791A0; --faint:#586576;
-    --gold:#7C97B4; --gold2:#AEC4DC; --buy:#4FB07A; --buy-bg:#4FB07A16; --warn:#D6A44A;
-    --warn-bg:#D6A44A16; --danger:#E0654E; --danger-bg:#E0654E14; --pos:#4FB07A; --neg:#E0654E;
-  }
+  /* (sin tema oscuro: el terminal queda anclado a la paleta clara del logo) */
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
   .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
@@ -248,9 +237,17 @@
             <button id="s-import" aria-pressed="true" onclick="setScenario('import')"><span class="dot">●</span> Importar a Panamá</button>
             <button id="s-zlc" aria-pressed="false" onclick="setScenario('zlc')"><span class="dot">●</span> Reexportar (ZLC)</button>
           </div>
+          <div class="seg" role="group" aria-label="Modo de entrada">
+            <button id="m-text" aria-pressed="true" onclick="setMode('text')">Texto</button>
+            <button id="m-url" aria-pressed="false" onclick="setMode('url')">URL</button>
+          </div>
         </div>
-        <div class="qhelp">La ruta define tus costos de internación → cambia el edge neto de este deal.</div>
+        <div class="qhelp" id="anz-help">Pega el anuncio (texto libre) o cambia a URL para analizar directo desde el listing.</div>
         <textarea id="paste" spellcheck="false">Vendo Rolex Explorer 124270, USD 6,300, full set (caja y papeles), año 2023, impecable. Dealer, 18 meses en la plataforma.</textarea>
+        <div id="url-fields" style="display:none">
+          <input id="url" class="fsearch" style="padding-left:11px" placeholder="Pega la URL del anuncio (Chrono24, eBay, dealer…)">
+          <input id="urlprice" class="fnum" style="width:100%;margin-top:8px" type="number" placeholder="Precio pedido (USD)">
+        </div>
         <button class="btn" onclick="analyze()">Analizar deal</button>
         <div class="verdict-card" id="vcard"></div>
       </div>
@@ -556,8 +553,29 @@ function setScenario(s){
 
 const UNI={"124270":{n:"Rolex Explorer 36",fv:8200,tier:"A"},"126710BLRO":{n:"Rolex GMT Pepsi",fv:19500,tier:"A"},
   "116500LN":{n:"Rolex Daytona",fv:29000,tier:"A"},"126610LN":{n:"Rolex Submariner Date",fv:14000,tier:"A"}};
+// Modo de entrada del analizador: texto libre o URL.
+let analyzerMode="text";
+function setMode(m){
+  analyzerMode=m;
+  document.getElementById("m-text").setAttribute("aria-pressed",m==="text");
+  document.getElementById("m-url").setAttribute("aria-pressed",m==="url");
+  document.getElementById("paste").style.display=m==="text"?"":"none";
+  document.getElementById("url-fields").style.display=m==="url"?"":"none";
+  document.getElementById("anz-help").textContent=m==="url"
+    ? "The Cote detecta el modelo desde la URL; agrega el precio para el veredicto. (El fetch completo de la página corre en el servidor.)"
+    : "Pega el anuncio (texto libre) o cambia a URL para analizar directo desde el listing.";
+}
+// Texto que se analiza: el textarea, o uno sintetizado desde la URL + precio.
+function currentAnalysisText(){
+  if(analyzerMode==="text") return document.getElementById("paste").value;
+  const url=(document.getElementById("url").value||"").trim();
+  const price=document.getElementById("urlprice").value;
+  if(!url) return "";
+  // asume condición estándar (excelente, full set) para el preview desde URL
+  return `${url} excellent full set${price?(" USD "+price):""}`;
+}
 function analyze(){
-  const t=document.getElementById("paste").value,T=t.toUpperCase(),low=t.toLowerCase();
+  const t=currentAnalysisText(),T=t.toUpperCase(),low=t.toLowerCase();
   const ref=Object.keys(UNI).find(k=>T.includes(k));
   const pm=t.match(/(?:us\$|usd|\$)\s?([0-9][0-9\.,]{2,})/i);
   const price=pm?parseFloat(pm[1].replace(/[.,]/g,"")):null;
@@ -658,7 +676,7 @@ if(location.protocol.startsWith("http")){
     if(document.getElementById("vcard").classList.contains("show")) analyze();
   };
   analyze=async function(){
-    const text=document.getElementById("paste").value,el=document.getElementById("vcard");
+    const text=currentAnalysisText(),el=document.getElementById("vcard");
     el.className="verdict-card show";
     try{
       const r=await fetch("/api/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,scenario})});
