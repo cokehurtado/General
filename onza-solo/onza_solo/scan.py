@@ -36,6 +36,45 @@ def _fmt_usd(x: float) -> str:
     return f"${x:,.0f}"
 
 
+# Códigos cortos de verdict para la tabla
+_VERDICT_SHORT = {
+    "BUY": "BUY", "PASS": "PASS", "SLOW_TURN": "SLOW",
+    "ILLIQUID": "ILLIQ", "UNSAFE_SOURCE": "UNSAFE",
+}
+
+
+def _print_summary_table(opps: list) -> None:
+    """Tabla con TODAS las variables juntas, una fila por deal.
+
+    Muestra el spread del deal (bruto y neto) junto a las variables de
+    factibilidad de venta (días, anualizado, vueltas) y de riesgo (procedencia).
+    """
+    cols = (
+        f"{'ESTADO':<7} {'MODELO':<24} {'PRECIO':>8}  "
+        f"{'SPRD.BR':>7} {'SPRD.NET':>8}  {'DÍAS':>4} {'ANUAL':>6} {'VUELT':>5}  "
+        f"{'TIER':>4} {'PROC':>4}"
+    )
+    print("VARIABLES DEL DEAL (todas juntas)")
+    print(cols)
+    print("─" * 92)
+    for o in opps:
+        inst = UNIVERSE[o.listing.ref]
+        p = o.priced
+        model = f"{inst.brand} {inst.name}"[:24]
+        annual = "∞" if o.annualized_edge >= 20.0 else f"{o.annualized_edge*100:>5.0f}%"
+        print(
+            f"{_VERDICT_SHORT.get(o.verdict, o.verdict):<7} {model:<24} "
+            f"{_fmt_usd(o.listing.price_usd):>8}  "
+            f"{o.gross_edge*100:>+6.1f}% {o.net_edge*100:>+7.1f}%  "
+            f"{o.days_to_sell:>4} {annual:>6} {o.capital_turns_per_year:>4.1f}x  "
+            f"{p.liquidity_tier.value:>4} {o.provenance_score:>4.0f}"
+        )
+    print("─" * 92)
+    print("SPRD.BR = spread bruto (fair value vs precio) · SPRD.NET = spread neto (tras costos y "
+          "realización)")
+    print("ANUAL = retorno anualizado · VUELT = vueltas de capital/año · PROC = procedencia /100\n")
+
+
 def main(argv: list[str]) -> int:
     args = [a for a in argv if not a.startswith("--")]
     flags = {a for a in argv if a.startswith("--")}
@@ -50,6 +89,9 @@ def main(argv: list[str]) -> int:
     scenario = "ZLC reexportación (arancel/ITBMS ~0)" if "--zlc" in flags else "importación uso propio"
     print(f"\nONZA Solo · scanner de arbitraje  —  escenario de costos: {scenario}")
     print(f"Universo: {len(UNIVERSE)} refs · Listings evaluados: {len(opps)}\n")
+    print("=" * 92)
+    _print_summary_table(opps)
+    print("DETALLE POR DEAL")
     print("=" * 92)
 
     for o in opps:
