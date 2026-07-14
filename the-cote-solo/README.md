@@ -1,4 +1,4 @@
-# The Cote Solo — terminal personal de arbitraje de relojes (v0)
+# The Cote — terminal personal de arbitraje de relojes (v0)
 
 > El arranque en chico de la visión The Cote: una herramienta **para beneficio propio** de compra/venta de relojes, bajo el mismo modelo de mercado financiero. No es el marketplace — es la Capa 1 (Terminal) + el motor de arbitraje del market-maker, operados por una sola persona con su propio capital.
 >

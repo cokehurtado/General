@@ -182,7 +182,7 @@ def _cli() -> int:
     pf = Portfolio(":memory:")
     seed_demo(pf)
     fv = lambda ref: UNIVERSE[ref].base_fair_value_usd if ref in UNIVERSE else None
-    print("\nThe Cote Solo · libro personal\n" + "=" * 72)
+    print("\nThe Cote · libro personal\n" + "=" * 72)
     print(f"{'MODELO':<26}{'COMPRA':>9}{'FAIR VAL':>10}{'P&L':>9}{'DÍAS':>6}  SEÑAL")
     print("-" * 72)
     for v in pf.view(fv):

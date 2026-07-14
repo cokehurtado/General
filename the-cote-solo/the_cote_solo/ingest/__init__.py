@@ -1,4 +1,4 @@
-"""Capa de ingesta de The Cote Solo.
+"""Capa de ingesta de The Cote.
 
 Automatiza la entrada de datos al motor, con dos vías (ver README):
   - Automática y legal: fuentes limpias vía adapter (subastas públicas, APIs).

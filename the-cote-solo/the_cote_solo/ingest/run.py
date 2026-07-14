@@ -39,7 +39,7 @@ def _run_scheduled() -> None:
         else EbaySource(offline_fixture=_EBAY_FIXTURE)
     sources = [AuctionResultsSource(), ebay, Chrono24Source(), WatchChartsSource()]
 
-    print("\nThe Cote Solo · ingesta automatizada (tick del scheduler)\n" + "=" * 74)
+    print("\nThe Cote · ingesta automatizada (tick del scheduler)\n" + "=" * 74)
     for rep in sched.run_all(sources):
         if rep.ok:
             print(f"✓ {rep.source:<18} nuevos {rep.new}  cambiados {rep.changed}  "
@@ -98,7 +98,7 @@ def _run_paste(text: str, cfg: ImportCostConfig) -> None:
         signals={"platform_verified": False, "account_age_months": 18,
                  "completed_sales": 25, "has_serial": True, "real_photos": True},
     )
-    print("\nThe Cote Solo · ingesta 'pega-el-texto'\n" + "=" * 74)
+    print("\nThe Cote · ingesta 'pega-el-texto'\n" + "=" * 74)
     print("Campos extraídos:")
     for k, v in rec.payload.items():
         if k == "condition_raw":

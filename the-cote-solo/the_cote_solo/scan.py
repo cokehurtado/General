@@ -87,7 +87,7 @@ def main(argv: list[str]) -> int:
     opps = scan(UNIVERSE, listings, cfg)
 
     scenario = "ZLC reexportación (arancel/ITBMS ~0)" if "--zlc" in flags else "importación uso propio"
-    print(f"\nThe Cote Solo · scanner de arbitraje  —  escenario de costos: {scenario}")
+    print(f"\nThe Cote · scanner de arbitraje  —  escenario de costos: {scenario}")
     print(f"Universo: {len(UNIVERSE)} refs · Listings evaluados: {len(opps)}\n")
     print("=" * 92)
     _print_summary_table(opps)

@@ -151,7 +151,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def serve(port: int = 8000) -> None:
     srv = ThreadingHTTPServer(("127.0.0.1", port), Handler)
-    print(f"The Cote Solo · terminal en http://127.0.0.1:{port}  (Ctrl+C para salir)")
+    print(f"The Cote · terminal en http://127.0.0.1:{port}  (Ctrl+C para salir)")
     try:
         srv.serve_forever()
     except KeyboardInterrupt:
