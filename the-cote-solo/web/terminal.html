@@ -65,6 +65,23 @@
   .shead{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 12px}
   .shead h2{margin:0;font-size:17px}
   .shead .hint{font-size:10.5px;color:var(--faint);letter-spacing:.03em}
+  /* filtros de mercado */
+  .filters{display:flex;flex-wrap:wrap;gap:9px 14px;align-items:center;padding:13px 16px;border-bottom:1px solid var(--hairline)}
+  .filters .grp{display:flex;align-items:center;gap:6px}
+  .filters .lbl{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+  .chips{display:flex;gap:4px;flex-wrap:wrap}
+  .fsearch{flex:1;min-width:180px;background:var(--panel2);border:1px solid var(--hairline);border-radius:8px;color:var(--ink);font-family:var(--sans);font-size:12.5px;padding:8px 11px}
+  .fsearch:focus{outline:2px solid var(--gold);outline-offset:-1px}
+  .fchip{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);background:var(--panel2);border:1px solid var(--hairline);border-radius:20px;padding:4px 10px;cursor:pointer;transition:.12s}
+  .fchip:hover{border-color:var(--gold)}
+  .fchip.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+  .fnum{width:72px;background:var(--panel2);border:1px solid var(--hairline);border-radius:7px;color:var(--ink);font-family:var(--mono);font-size:12px;padding:6px 8px}
+  .fsel{background:var(--panel2);border:1px solid var(--hairline);border-radius:7px;color:var(--ink);font-family:var(--sans);font-size:12px;padding:6px 8px}
+  .fnum:focus,.fsel:focus{outline:2px solid var(--gold);outline-offset:-1px}
+  .fcount{margin-left:auto;font-size:11px;color:var(--muted);font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .fbtn{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);background:none;border:1px solid var(--hairline);border-radius:7px;padding:6px 11px;cursor:pointer}
+  .fbtn:hover{border-color:var(--gold);color:var(--ink)}
+  .norows{padding:26px 16px;text-align:center;color:var(--muted);font-size:13px}
 
   /* PRIMARY zone: action first */
   .primary{display:grid;grid-template-columns:1.45fr .9fr;gap:18px;margin-bottom:30px}
@@ -234,8 +251,29 @@
   </div>
 
   <!-- SCREENER -->
-  <div class="shead"><h2>Oportunidades</h2><span class="hint">click en una fila para ver comparables y el porqué</span></div>
+  <div class="shead"><h2>Mercado</h2><span class="hint">filtra y ordena · click en una fila para el detalle</span></div>
   <div class="panel">
+    <div class="filters">
+      <input id="f-search" class="fsearch" placeholder="Buscar modelo o referencia…" oninput="F.q=this.value;applyFilters()">
+      <div class="grp"><span class="lbl">Marca</span><span id="f-brands" class="chips"></span></div>
+      <div class="grp"><span class="lbl">Estado</span><span id="f-estados" class="chips"></span></div>
+      <div class="grp"><span class="lbl">Tier</span><span id="f-tiers" class="chips"></span></div>
+      <div class="grp"><span class="lbl">Precio</span>
+        <input class="fnum" type="number" placeholder="mín" oninput="F.pmin=this.value?+this.value:null;applyFilters()">
+        <span style="color:var(--faint)">–</span>
+        <input class="fnum" type="number" placeholder="máx" oninput="F.pmax=this.value?+this.value:null;applyFilters()"></div>
+      <button class="fchip" id="f-retail" onclick="F.belowRetail=!F.belowRetail;this.classList.toggle('on',F.belowRetail);applyFilters()">Bajo retail</button>
+      <div class="grp"><span class="lbl">Proc.</span>
+        <select class="fsel" onchange="F.minProv=+this.value;applyFilters()">
+          <option value="0">Toda</option><option value="55">≥55 segura</option><option value="80">≥80 alta</option></select></div>
+      <div class="grp"><span class="lbl">Orden</span>
+        <select class="fsel" onchange="F.sort=this.value;applyFilters()">
+          <option value="an">Anualizado</option><option value="net">Spread neto</option>
+          <option value="price_desc">Precio ↓</option><option value="price_asc">Precio ↑</option>
+          <option value="days">Días ↑</option><option value="prov">Procedencia</option></select></div>
+      <span class="fcount" id="fcount"></span>
+      <button class="fbtn" onclick="clearFilters()">Limpiar</button>
+    </div>
     <div class="tbl-scroll">
       <table>
         <thead><tr>
@@ -282,26 +320,98 @@
 
 <script>
 const CIW={A:0.06,B:0.12,C:0.22,D:0.35};
-const DEALS={
- import:[
-  {v:"pass",name:"Rolex Explorer 36",ref:"124270",price:6300,fv:8200,gr:30.2,net:6.6,d:45,an:null,x:8.1,tier:"A",prov:100,ncomp:22,upd:"hace 2d",flags:[],retail:true},
-  {v:"pass",name:"Rolex Daytona",ref:"116500LN",price:24500,fv:29870,gr:21.9,net:0.9,d:34,an:null,x:10.7,tier:"A",prov:89,ncomp:30,upd:"hace 5h",flags:["Sin historial de servicio"],retail:false},
-  {v:"pass",name:"Rolex GMT Pepsi",ref:"126710BLRO",price:16800,fv:19500,gr:16.1,net:-3.4,d:38,an:null,x:9.6,tier:"A",prov:100,ncomp:35,upd:"hace 1d",flags:[],retail:false},
-  {v:"pass",name:"Omega Speedmaster",ref:"310.30.42",price:4200,fv:4884,gr:16.3,net:-7.3,d:65,an:null,x:5.6,tier:"A",prov:83,ncomp:28,upd:"hace 8h",flags:["No comparte número de serie"],retail:true},
-  {v:"pass",name:"Patek Nautilus",ref:"5711/1A",price:88000,fv:95000,gr:8.0,net:-13.9,d:90,an:null,x:4.1,tier:"B",prov:100,ncomp:6,upd:"hace 3d",flags:[],retail:false},
-  {v:"unsafe",name:"Rolex Submariner Date",ref:"126610LN",price:8900,fv:13160,gr:47.9,net:17.2,d:42,an:null,x:8.7,tier:"A",prov:52,ncomp:45,upd:"hace 1d",flags:["Sin verificación de plataforma","Cuenta < 3 meses"],retail:true},
-  {v:"unsafe",name:"Rolex Daytona",ref:"116500LN",price:12000,fv:31320,gr:161.0,net:99.2,d:33,an:null,x:11.1,tier:"A",prov:0,ncomp:30,upd:"hace 4h",flags:["Cuenta muy nueva","Sin fotos propias","Precio anómalo — posible falsificación"],retail:true},
- ],
- zlc:[
-  {v:"buy",name:"Rolex Explorer 36",ref:"124270",price:6300,fv:8200,gr:30.2,net:19.1,d:45,an:312,x:8.1,tier:"A",prov:100,ncomp:22,upd:"hace 2d",flags:[],retail:true},
-  {v:"buy",name:"Rolex Daytona",ref:"116500LN",price:24500,fv:29870,gr:21.9,net:13.0,d:34,an:272,x:10.7,tier:"A",prov:89,ncomp:30,upd:"hace 5h",flags:["Sin historial de servicio"],retail:false},
-  {v:"pass",name:"Rolex GMT Pepsi",ref:"126710BLRO",price:16800,fv:19500,gr:16.1,net:8.3,d:38,an:114,x:9.6,tier:"A",prov:100,ncomp:35,upd:"hace 1d",flags:[],retail:false},
-  {v:"slow",name:"Omega Speedmaster",ref:"310.30.42",price:4200,fv:4884,gr:16.3,net:2.7,d:65,an:16,x:5.6,tier:"A",prov:83,ncomp:28,upd:"hace 8h",flags:["No comparte número de serie"],retail:true},
-  {v:"pass",name:"Patek Nautilus",ref:"5711/1A",price:88000,fv:95000,gr:8.0,net:-4.3,d:90,an:-16,x:4.1,tier:"B",prov:100,ncomp:6,upd:"hace 3d",flags:[],retail:false},
-  {v:"unsafe",name:"Rolex Submariner Date",ref:"126610LN",price:8900,fv:13160,gr:47.9,net:30.5,d:42,an:909,x:8.7,tier:"A",prov:52,ncomp:45,upd:"hace 1d",flags:["Sin verificación de plataforma","Cuenta < 3 meses"],retail:true},
-  {v:"unsafe",name:"Rolex Daytona",ref:"116500LN",price:12000,fv:31320,gr:161.0,net:121.4,d:33,an:null,x:11.1,tier:"A",prov:0,ncomp:30,upd:"hace 4h",flags:["Cuenta muy nueva","Sin fotos propias","Precio anómalo — posible falsificación"],retail:true},
- ],
-};
+// Mercado base (una sola fuente); los campos por escenario se derivan con un mini-modelo.
+const BASE=[
+  {name:"Rolex Submariner No-Date",ref:"124060",brand:"Rolex",price:10200,fv:11500,tier:"A",prov:100,retail:9100,ncomp:28,upd:"hace 6h",flags:[]},
+  {name:"Rolex Submariner Date",ref:"126610LN",brand:"Rolex",price:12300,fv:14000,tier:"A",prov:100,retail:10400,ncomp:40,upd:"hace 1d",flags:[]},
+  {name:"Rolex GMT Pepsi",ref:"126710BLRO",brand:"Rolex",price:16800,fv:19500,tier:"A",prov:100,retail:11200,ncomp:35,upd:"hace 1d",flags:[]},
+  {name:"Rolex GMT Batman",ref:"126710BLNR",brand:"Rolex",price:15900,fv:18000,tier:"A",prov:95,retail:11200,ncomp:35,upd:"hace 3h",flags:[]},
+  {name:"Rolex Cosmograph Daytona",ref:"116500LN",brand:"Rolex",price:24500,fv:29900,tier:"A",prov:89,retail:15100,ncomp:30,upd:"hace 5h",flags:["Sin historial de servicio"]},
+  {name:"Rolex Explorer 36",ref:"124270",brand:"Rolex",price:6300,fv:8200,tier:"A",prov:100,retail:7000,ncomp:22,upd:"hace 2d",flags:[]},
+  {name:"Rolex Datejust 36",ref:"126234",brand:"Rolex",price:8900,fv:9600,tier:"A",prov:96,retail:8200,ncomp:25,upd:"hace 2d",flags:[]},
+  {name:"Rolex Sea-Dweller 43",ref:"126600",brand:"Rolex",price:13200,fv:14500,tier:"B",prov:100,retail:13000,ncomp:15,upd:"hace 4d",flags:[]},
+  {name:"Rolex Yacht-Master 40",ref:"126622",brand:"Rolex",price:12900,fv:13800,tier:"B",prov:100,retail:12300,ncomp:14,upd:"hace 3d",flags:[]},
+  {name:"Omega Speedmaster Moonwatch",ref:"310.30.42",brand:"Omega",price:5100,fv:6600,tier:"A",prov:83,retail:7000,ncomp:28,upd:"hace 8h",flags:["No comparte número de serie"]},
+  {name:"Omega Seamaster Diver 300M",ref:"210.30.42",brand:"Omega",price:4600,fv:5200,tier:"A",prov:90,retail:5600,ncomp:24,upd:"hace 1d",flags:[]},
+  {name:"Audemars Piguet Royal Oak 41",ref:"15500ST",brand:"Audemars Piguet",price:36000,fv:42000,tier:"B",prov:100,retail:23900,ncomp:12,upd:"hace 5d",flags:[]},
+  {name:"Audemars Piguet Royal Oak 15400",ref:"15400ST",brand:"Audemars Piguet",price:44000,fv:45000,tier:"B",prov:100,retail:null,ncomp:8,upd:"hace 8d",flags:[]},
+  {name:"Patek Philippe Nautilus",ref:"5711/1A",brand:"Patek Philippe",price:88000,fv:95000,tier:"B",prov:100,retail:null,ncomp:6,upd:"hace 3d",flags:[]},
+  {name:"Patek Philippe Aquanaut",ref:"5167A",brand:"Patek Philippe",price:52000,fv:55000,tier:"C",prov:100,retail:24500,ncomp:4,upd:"hace 6d",flags:[]},
+  {name:"Tudor Black Bay Fifty-Eight",ref:"79030N",brand:"Tudor",price:3100,fv:3600,tier:"A",prov:88,retail:4100,ncomp:26,upd:"hace 12h",flags:[]},
+  {name:"Tudor Pelagos 42",ref:"25600TN",brand:"Tudor",price:3900,fv:4200,tier:"B",prov:92,retail:5000,ncomp:12,upd:"hace 2d",flags:[]},
+  {name:"Cartier Santos de Cartier",ref:"WSSA0009",brand:"Cartier",price:6100,fv:6900,tier:"B",prov:90,retail:7400,ncomp:14,upd:"hace 1d",flags:[]},
+  {name:"Rolex Submariner Date",ref:"126610LN",brand:"Rolex",price:8900,fv:13160,tier:"A",prov:52,retail:10400,ncomp:45,upd:"hace 1d",flags:["Sin verificación de plataforma","Cuenta < 3 meses"]},
+  {name:"Rolex Cosmograph Daytona",ref:"116500LN",brand:"Rolex",price:12000,fv:31320,tier:"A",prov:0,retail:15100,ncomp:30,upd:"hace 4h",flags:["Cuenta muy nueva","Sin fotos propias","Precio anómalo — posible falsificación"]},
+];
+const HAIRCUT={A:0.04,B:0.08,C:0.15,D:0.25}, HDAYS={A:45,B:90,C:150,D:240};
+function derive(b,scen){
+  const real=b.fv*(1-(HAIRCUT[b.tier]||0.1));
+  const days=HDAYS[b.tier]||90, costRate=scen==="zlc"?0.025:0.145;
+  const cost=b.price*(1+costRate)+b.price*(days/365)*0.12+(1-b.prov/100)*0.10*b.price;
+  const gross=(b.fv-b.price)/b.price*100, net=(real-cost)/cost*100;
+  let an=(net<=-99)?null:(Math.pow(1+net/100,365/days)-1)*100;
+  if(an!=null&&an>=2000)an=null;
+  let v;
+  if(b.prov<55)v="unsafe";
+  else if((b.tier==="C"||b.tier==="D")&&net<25)v="illiq";
+  else if(net<10)v="pass";
+  else if(an!=null&&an<30)v="slow";
+  else v="buy";
+  return {v,name:b.name,ref:b.ref,brand:b.brand,price:b.price,fv:b.fv,gr:+gross.toFixed(1),
+    net:+net.toFixed(1),d:days,an:an==null?null:Math.round(an),x:+(365/days).toFixed(1),
+    tier:b.tier,prov:b.prov,ncomp:b.ncomp,upd:b.upd,flags:b.flags,
+    retail:b.retail!=null&&b.price<b.retail};
+}
+const DEALS={import:BASE.map(b=>derive(b,"import")),zlc:BASE.map(b=>derive(b,"zlc"))};
+
+// ── Buscador de mercado con filtros ─────────────────────────────────────────
+const F={q:"",brands:new Set(),estados:new Set(),tiers:new Set(),pmin:null,pmax:null,belowRetail:false,minProv:0,sort:"an"};
+function brandOf(r){return r.brand||(r.name||"").split(" ")[0];}
+function chipGroup(id,opts,set){
+  const el=document.getElementById(id); if(!el)return;
+  el.innerHTML=opts.map(o=>`<button class="fchip" data-v="${o[0]}">${o[1]}</button>`).join("");
+  el.querySelectorAll(".fchip").forEach(btn=>btn.onclick=()=>{
+    const v=btn.dataset.v;
+    if(set.has(v)){set.delete(v);btn.classList.remove("on");}else{set.add(v);btn.classList.add("on");}
+    applyFilters();
+  });
+}
+function buildFilterBar(){
+  chipGroup("f-brands",[...new Set(DEALS.import.map(brandOf))].map(b=>[b,b]),F.brands);
+  chipGroup("f-estados",[["buy","Comprar"],["pass","Sin edge"],["slow","Lento"],["unsafe","Vetado"],["illiq","Ilíquido"]],F.estados);
+  chipGroup("f-tiers",[["A","A"],["B","B"],["C","C"],["D","D"]],F.tiers);
+}
+function getFiltered(){
+  let rows=(DEALS[scenario]||[]).slice();
+  const q=F.q.trim().toLowerCase();
+  if(q)rows=rows.filter(r=>(r.name+" "+r.ref).toLowerCase().includes(q));
+  if(F.brands.size)rows=rows.filter(r=>F.brands.has(brandOf(r)));
+  if(F.estados.size)rows=rows.filter(r=>F.estados.has(r.v));
+  if(F.tiers.size)rows=rows.filter(r=>F.tiers.has(r.tier));
+  if(F.pmin!=null)rows=rows.filter(r=>r.price>=F.pmin);
+  if(F.pmax!=null)rows=rows.filter(r=>r.price<=F.pmax);
+  if(F.belowRetail)rows=rows.filter(r=>r.retail);
+  if(F.minProv)rows=rows.filter(r=>r.prov>=F.minProv);
+  const A=r=>r.an==null?1e5:r.an;
+  const c={an:(a,b)=>A(b)-A(a),net:(a,b)=>b.net-a.net,price_desc:(a,b)=>b.price-a.price,
+    price_asc:(a,b)=>a.price-b.price,days:(a,b)=>a.d-b.d,prov:(a,b)=>b.prov-a.prov}[F.sort]||((a,b)=>A(b)-A(a));
+  rows.sort((a,b)=>((a.v!=="buy")-(b.v!=="buy"))||c(a,b));
+  return rows;
+}
+function applyFilters(){
+  const rows=getFiltered();
+  renderScreener(rows);
+  const el=document.getElementById("fcount");
+  if(el)el.textContent=`${rows.length} de ${(DEALS[scenario]||[]).length}`;
+}
+function clearFilters(){
+  F.q="";F.brands.clear();F.estados.clear();F.tiers.clear();F.pmin=F.pmax=null;F.belowRetail=false;F.minProv=0;F.sort="an";
+  const s=document.getElementById("f-search"); if(s)s.value="";
+  document.querySelectorAll(".filters .fnum").forEach(i=>i.value="");
+  document.querySelectorAll(".filters .fchip.on").forEach(c=>c.classList.remove("on"));
+  document.querySelectorAll(".filters select").forEach(sel=>sel.selectedIndex=0);
+  applyFilters();
+}
 const PILL={buy:"Comprar",pass:"Sin edge",slow:"Lento",unsafe:"Vetado"};
 const usd=n=>"$"+Math.round(n).toLocaleString("en-US");
 const usdk=n=>"$"+(n/1000).toFixed(1)+"k";
@@ -346,6 +456,7 @@ function renderAlerts(){
 
 function renderScreener(rows){
   const tb=document.getElementById("screener"); tb.innerHTML=""; openRow=null;
+  if(!rows.length){tb.innerHTML='<tr><td colspan="11"><div class="norows">Sin resultados para estos filtros.</div></td></tr>';return;}
   rows.forEach((r,i)=>{
     const ci=CIW[r.tier], lo=r.fv*(1-ci), hi=r.fv*(1+ci);
     const main=document.createElement("tr"); main.className="main";
@@ -382,7 +493,7 @@ function setScenario(s){
   scenario=s;
   document.getElementById("s-import").setAttribute("aria-pressed",s==="import");
   document.getElementById("s-zlc").setAttribute("aria-pressed",s==="zlc");
-  renderScreener(DEALS[s]);
+  applyFilters();
   if(document.getElementById("vcard").classList.contains("show"))analyze();
 }
 
@@ -467,7 +578,7 @@ function drawDial(){const o=C("dial");if(!o)return;const{x,w,h}=o,cx=w/2,cy=h/2,
   x.beginPath();x.arc(cx,cy,2,0,7);x.fillStyle=gold;x.fill();}
 function redraw(){drawDial();drawSpark();}
 
-renderAlerts();setScenario("import");analyze();redraw();
+renderAlerts();buildFilterBar();setScenario("import");analyze();redraw();
 if(!window.matchMedia("(prefers-reduced-motion:reduce)").matches)setInterval(drawDial,1000);
 window.addEventListener("resize",redraw);
 new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
@@ -486,7 +597,7 @@ if(location.protocol.startsWith("http")){
     scenario=s;
     document.getElementById("s-import").setAttribute("aria-pressed",s==="import");
     document.getElementById("s-zlc").setAttribute("aria-pressed",s==="zlc");
-    await loadScan(s); renderScreener(DEALS[s]);
+    await loadScan(s); buildFilterBar(); applyFilters();
     if(document.getElementById("vcard").classList.contains("show")) analyze();
   };
   analyze=async function(){
