@@ -65,21 +65,33 @@
   .shead{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 12px}
   .shead h2{margin:0;font-size:17px}
   .shead .hint{font-size:10.5px;color:var(--faint);letter-spacing:.03em}
-  /* filtros de mercado */
-  .filters{display:flex;flex-wrap:wrap;gap:9px 14px;align-items:center;padding:13px 16px;border-bottom:1px solid var(--hairline)}
-  .filters .grp{display:flex;align-items:center;gap:6px}
-  .filters .lbl{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
-  .chips{display:flex;gap:4px;flex-wrap:wrap}
-  .fsearch{flex:1;min-width:180px;background:var(--panel2);border:1px solid var(--hairline);border-radius:8px;color:var(--ink);font-family:var(--sans);font-size:12.5px;padding:8px 11px}
+  /* buscador de mercado con dropdowns */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--hairline)}
+  .fsearch-wrap{position:relative;flex:1;min-width:210px}
+  .fsi{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:14px;pointer-events:none}
+  .fsearch{width:100%;background:var(--panel2);border:1px solid var(--hairline);border-radius:8px;color:var(--ink);font-family:var(--sans);font-size:12.5px;padding:8px 11px 8px 30px}
   .fsearch:focus{outline:2px solid var(--gold);outline-offset:-1px}
-  .fchip{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);background:var(--panel2);border:1px solid var(--hairline);border-radius:20px;padding:4px 10px;cursor:pointer;transition:.12s}
-  .fchip:hover{border-color:var(--gold)}
-  .fchip.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+  .dd{position:relative}
+  .dd-btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--ink2);background:var(--panel2);border:1px solid var(--hairline);border-radius:8px;padding:8px 11px;cursor:pointer;white-space:nowrap}
+  .dd-btn:hover{border-color:var(--gold)}
+  .dd.open .dd-btn{border-color:var(--gold);color:var(--ink)}
+  .dd-btn .cv{font-size:8px;color:var(--faint);transition:transform .15s}
+  .dd.open .dd-btn .cv{transform:rotate(180deg)}
+  .dd-btn .dd-c{color:var(--gold);font-family:var(--mono);font-size:11px;font-weight:700}
+  .dd-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:30;min-width:172px;background:var(--raised);border:1px solid var(--hairline);border-radius:11px;box-shadow:0 18px 44px -18px rgba(0,0,0,.5);padding:7px;display:none}
+  .dd.open .dd-panel{display:block}
+  .dd-opt{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:7px;font-size:12.5px;color:var(--ink2);cursor:pointer}
+  .dd-opt:hover{background:var(--panel2)}
+  .dd-opt input{accent-color:var(--gold);width:14px;height:14px;flex:0 0 auto}
+  .dd-sep{height:1px;background:var(--hairline);margin:6px 4px}
+  .dd-price-row{display:flex;align-items:center;gap:7px;padding:5px 6px}
+  .dd-presets{display:flex;flex-wrap:wrap;gap:5px;padding:4px 6px 6px}
+  .dd-preset{font-size:11px;color:var(--muted);background:var(--panel2);border:1px solid var(--hairline);border-radius:14px;padding:4px 9px;cursor:pointer}
+  .dd-preset:hover{border-color:var(--gold);color:var(--ink)}
   .fnum{width:72px;background:var(--panel2);border:1px solid var(--hairline);border-radius:7px;color:var(--ink);font-family:var(--mono);font-size:12px;padding:6px 8px}
-  .fsel{background:var(--panel2);border:1px solid var(--hairline);border-radius:7px;color:var(--ink);font-family:var(--sans);font-size:12px;padding:6px 8px}
-  .fnum:focus,.fsel:focus{outline:2px solid var(--gold);outline-offset:-1px}
+  .fnum:focus{outline:2px solid var(--gold);outline-offset:-1px}
   .fcount{margin-left:auto;font-size:11px;color:var(--muted);font-family:var(--mono);font-variant-numeric:tabular-nums}
-  .fbtn{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);background:none;border:1px solid var(--hairline);border-radius:7px;padding:6px 11px;cursor:pointer}
+  .fbtn{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);background:none;border:1px solid var(--hairline);border-radius:7px;padding:8px 11px;cursor:pointer}
   .fbtn:hover{border-color:var(--gold);color:var(--ink)}
   .norows{padding:26px 16px;text-align:center;color:var(--muted);font-size:13px}
 
@@ -254,23 +266,22 @@
   <div class="shead"><h2>Mercado</h2><span class="hint">filtra y ordena · click en una fila para el detalle</span></div>
   <div class="panel">
     <div class="filters">
-      <input id="f-search" class="fsearch" placeholder="Buscar modelo o referencia…" oninput="F.q=this.value;applyFilters()">
-      <div class="grp"><span class="lbl">Marca</span><span id="f-brands" class="chips"></span></div>
-      <div class="grp"><span class="lbl">Estado</span><span id="f-estados" class="chips"></span></div>
-      <div class="grp"><span class="lbl">Tier</span><span id="f-tiers" class="chips"></span></div>
-      <div class="grp"><span class="lbl">Precio</span>
-        <input class="fnum" type="number" placeholder="mín" oninput="F.pmin=this.value?+this.value:null;applyFilters()">
-        <span style="color:var(--faint)">–</span>
-        <input class="fnum" type="number" placeholder="máx" oninput="F.pmax=this.value?+this.value:null;applyFilters()"></div>
-      <button class="fchip" id="f-retail" onclick="F.belowRetail=!F.belowRetail;this.classList.toggle('on',F.belowRetail);applyFilters()">Bajo retail</button>
-      <div class="grp"><span class="lbl">Proc.</span>
-        <select class="fsel" onchange="F.minProv=+this.value;applyFilters()">
-          <option value="0">Toda</option><option value="55">≥55 segura</option><option value="80">≥80 alta</option></select></div>
-      <div class="grp"><span class="lbl">Orden</span>
-        <select class="fsel" onchange="F.sort=this.value;applyFilters()">
-          <option value="an">Anualizado</option><option value="net">Spread neto</option>
-          <option value="price_desc">Precio ↓</option><option value="price_asc">Precio ↑</option>
-          <option value="days">Días ↑</option><option value="prov">Procedencia</option></select></div>
+      <div class="fsearch-wrap"><span class="fsi">⌕</span>
+        <input id="f-search" class="fsearch" placeholder="Buscar modelo o referencia…" oninput="F.q=this.value;applyFilters()"></div>
+      <div class="dd" id="dd-brand"><button class="dd-btn">Marca<span class="dd-c"></span><i class="cv">▾</i></button><div class="dd-panel" id="p-brand"></div></div>
+      <div class="dd" id="dd-estado"><button class="dd-btn">Estado<span class="dd-c"></span><i class="cv">▾</i></button><div class="dd-panel" id="p-estado"></div></div>
+      <div class="dd" id="dd-tier"><button class="dd-btn">Tier<span class="dd-c"></span><i class="cv">▾</i></button><div class="dd-panel" id="p-tier"></div></div>
+      <div class="dd" id="dd-price"><button class="dd-btn">Precio<span class="dd-c"></span><i class="cv">▾</i></button>
+        <div class="dd-panel" id="p-price">
+          <div class="dd-price-row">
+            <input class="fnum" id="pmin" type="number" placeholder="mín" oninput="F.pmin=this.value?+this.value:null;applyFilters()">
+            <span style="color:var(--faint)">–</span>
+            <input class="fnum" id="pmax" type="number" placeholder="máx" oninput="F.pmax=this.value?+this.value:null;applyFilters()">
+          </div>
+          <div class="dd-presets" id="p-presets"></div>
+        </div></div>
+      <div class="dd" id="dd-proc"><button class="dd-btn">Procedencia<span class="dd-c"></span><i class="cv">▾</i></button><div class="dd-panel" id="p-proc"></div></div>
+      <div class="dd" id="dd-sort"><button class="dd-btn">Ordenar<span class="dd-c"></span><i class="cv">▾</i></button><div class="dd-panel" id="p-sort"></div></div>
       <span class="fcount" id="fcount"></span>
       <button class="fbtn" onclick="clearFilters()">Limpiar</button>
     </div>
@@ -364,22 +375,69 @@ function derive(b,scen){
 }
 const DEALS={import:BASE.map(b=>derive(b,"import")),zlc:BASE.map(b=>derive(b,"zlc"))};
 
-// ── Buscador de mercado con filtros ─────────────────────────────────────────
+// ── Buscador de mercado (dropdowns) ─────────────────────────────────────────
 const F={q:"",brands:new Set(),estados:new Set(),tiers:new Set(),pmin:null,pmax:null,belowRetail:false,minProv:0,sort:"an"};
+const SORTLBL={an:"Anualizado",net:"Spread neto",price_desc:"Precio ↓",price_asc:"Precio ↑",days:"Días ↑",prov:"Procedencia"};
 function brandOf(r){return r.brand||(r.name||"").split(" ")[0];}
-function chipGroup(id,opts,set){
-  const el=document.getElementById(id); if(!el)return;
-  el.innerHTML=opts.map(o=>`<button class="fchip" data-v="${o[0]}">${o[1]}</button>`).join("");
-  el.querySelectorAll(".fchip").forEach(btn=>btn.onclick=()=>{
-    const v=btn.dataset.v;
-    if(set.has(v)){set.delete(v);btn.classList.remove("on");}else{set.add(v);btn.classList.add("on");}
+
+function buildMulti(panelId,opts,set){
+  const el=document.getElementById(panelId); if(!el)return;
+  el.innerHTML=opts.map(o=>`<label class="dd-opt"><input type="checkbox" value="${o[0]}" ${set.has(o[0])?"checked":""}><span>${o[1]}</span></label>`).join("");
+  el.querySelectorAll("input").forEach(inp=>inp.onchange=()=>{
+    if(inp.checked)set.add(inp.value);else set.delete(inp.value); applyFilters();
+  });
+}
+function buildProc(){
+  const el=document.getElementById("p-proc"); if(!el)return;
+  const opts=[[0,"Toda"],[55,"≥55 · segura"],[80,"≥80 · alta"]];
+  el.innerHTML=opts.map(o=>`<label class="dd-opt"><input type="radio" name="proc" value="${o[0]}" ${F.minProv==o[0]?"checked":""}><span>${o[1]}</span></label>`).join("")
+    +'<div class="dd-sep"></div><label class="dd-opt"><input type="checkbox" id="opt-retail"'+(F.belowRetail?" checked":"")+'><span>Solo bajo retail</span></label>';
+  el.querySelectorAll('input[name="proc"]').forEach(inp=>inp.onchange=()=>{F.minProv=+inp.value;applyFilters();});
+  el.querySelector("#opt-retail").onchange=e=>{F.belowRetail=e.target.checked;applyFilters();};
+}
+function buildSort(){
+  const el=document.getElementById("p-sort"); if(!el)return;
+  el.innerHTML=Object.entries(SORTLBL).map(([v,l])=>`<label class="dd-opt"><input type="radio" name="sort" value="${v}" ${F.sort===v?"checked":""}><span>${l}</span></label>`).join("");
+  el.querySelectorAll("input").forEach(inp=>inp.onchange=()=>{F.sort=inp.value;applyFilters();});
+}
+function buildPresets(){
+  const el=document.getElementById("p-presets"); if(!el)return;
+  const P=[["< $5k",null,5000],["$5–15k",5000,15000],["$15–50k",15000,50000],["> $50k",50000,null]];
+  el.innerHTML=P.map((p,i)=>`<button class="dd-preset" data-i="${i}">${p[0]}</button>`).join("");
+  el.querySelectorAll(".dd-preset").forEach(b=>b.onclick=()=>{
+    const p=P[+b.dataset.i]; F.pmin=p[1]; F.pmax=p[2];
+    const mn=document.getElementById("pmin"),mx=document.getElementById("pmax");
+    if(mn)mn.value=p[1]==null?"":p[1]; if(mx)mx.value=p[2]==null?"":p[2];
     applyFilters();
   });
 }
+let _ddWired=false;
+function wireDropdowns(){
+  document.querySelectorAll(".dd-btn").forEach(btn=>btn.onclick=e=>{
+    e.stopPropagation();
+    const dd=btn.closest(".dd"), open=dd.classList.contains("open");
+    document.querySelectorAll(".dd.open").forEach(d=>d.classList.remove("open"));
+    if(!open)dd.classList.add("open");
+  });
+  if(!_ddWired){
+    document.addEventListener("click",e=>{ if(!e.target.closest(".dd")) document.querySelectorAll(".dd.open").forEach(d=>d.classList.remove("open")); });
+    _ddWired=true;
+  }
+}
 function buildFilterBar(){
-  chipGroup("f-brands",[...new Set(DEALS.import.map(brandOf))].map(b=>[b,b]),F.brands);
-  chipGroup("f-estados",[["buy","Comprar"],["pass","Sin edge"],["slow","Lento"],["unsafe","Vetado"],["illiq","Ilíquido"]],F.estados);
-  chipGroup("f-tiers",[["A","A"],["B","B"],["C","C"],["D","D"]],F.tiers);
+  buildMulti("p-brand",[...new Set(DEALS.import.map(brandOf))].map(b=>[b,b]),F.brands);
+  buildMulti("p-estado",[["buy","Comprar"],["pass","Sin edge"],["slow","Lento"],["unsafe","Vetado"],["illiq","Ilíquido"]],F.estados);
+  buildMulti("p-tier",[["A","Tier A"],["B","Tier B"],["C","Tier C"],["D","Tier D"]],F.tiers);
+  buildProc(); buildSort(); buildPresets(); wireDropdowns();
+}
+function badge(id,txt){const b=document.querySelector("#"+id+" .dd-c"); if(b)b.textContent=txt?(" · "+txt):"";}
+function refreshBadges(){
+  badge("dd-brand",F.brands.size||"");
+  badge("dd-estado",F.estados.size||"");
+  badge("dd-tier",F.tiers.size||"");
+  badge("dd-price",(F.pmin!=null||F.pmax!=null)?"✓":"");
+  badge("dd-proc",[F.minProv?("≥"+F.minProv):"",F.belowRetail?"retail":""].filter(Boolean).join(" "));
+  badge("dd-sort",SORTLBL[F.sort]);
 }
 function getFiltered(){
   let rows=(DEALS[scenario]||[]).slice();
@@ -403,14 +461,13 @@ function applyFilters(){
   renderScreener(rows);
   const el=document.getElementById("fcount");
   if(el)el.textContent=`${rows.length} de ${(DEALS[scenario]||[]).length}`;
+  refreshBadges();
 }
 function clearFilters(){
   F.q="";F.brands.clear();F.estados.clear();F.tiers.clear();F.pmin=F.pmax=null;F.belowRetail=false;F.minProv=0;F.sort="an";
   const s=document.getElementById("f-search"); if(s)s.value="";
-  document.querySelectorAll(".filters .fnum").forEach(i=>i.value="");
-  document.querySelectorAll(".filters .fchip.on").forEach(c=>c.classList.remove("on"));
-  document.querySelectorAll(".filters select").forEach(sel=>sel.selectedIndex=0);
-  applyFilters();
+  const mn=document.getElementById("pmin"),mx=document.getElementById("pmax"); if(mn)mn.value=""; if(mx)mx.value="";
+  buildFilterBar(); applyFilters();
 }
 const PILL={buy:"Comprar",pass:"Sin edge",slow:"Lento",unsafe:"Vetado"};
 const usd=n=>"$"+Math.round(n).toLocaleString("en-US");
