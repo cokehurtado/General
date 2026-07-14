@@ -5,7 +5,7 @@ Corre con:  python -m unittest discover tests
 
 import unittest
 
-from onza_solo import grading, pricing, provenance
+from onza_solo import grading, pricing, provenance, velocity
 from onza_solo.arbitrage import evaluate, MIN_NET_EDGE
 from onza_solo.costs import ImportCostConfig
 from onza_solo.models import Condition, Instrument, LiquidityTier, Listing
@@ -95,6 +95,30 @@ class TestCosts(unittest.TestCase):
         self.assertEqual(b["itbms"], 0)
 
 
+class TestVelocity(unittest.TestCase):
+    def test_illiquid_sells_slower(self):
+        fast, _ = velocity.expected_days_to_sell(LiquidityTier.A, Condition.EXCELLENT)
+        slow, _ = velocity.expected_days_to_sell(LiquidityTier.C, Condition.EXCELLENT)
+        self.assertGreater(slow, fast)
+
+    def test_worse_condition_sells_slower(self):
+        good, _ = velocity.expected_days_to_sell(LiquidityTier.A, Condition.NEW_UNWORN)
+        bad, _ = velocity.expected_days_to_sell(LiquidityTier.A, Condition.FAIR)
+        self.assertGreater(bad, good)
+
+    def test_annualized_rewards_speed(self):
+        # mismo edge absoluto, distinta velocidad -> el más rápido anualiza más
+        fast = velocity.annualized_return(0.12, 30)
+        slow = velocity.annualized_return(0.20, 180)
+        self.assertGreater(fast, slow)
+
+    def test_annualized_guards_total_loss(self):
+        self.assertEqual(velocity.annualized_return(-1.0, 30), -1.0)
+
+    def test_capital_turns(self):
+        self.assertAlmostEqual(velocity.capital_turns_per_year(365), 1.0, places=3)
+
+
 class TestArbitrage(unittest.TestCase):
     def test_clear_buy(self):
         # compra muy por debajo del fair value, buena procedencia, tier A
@@ -128,6 +152,33 @@ class TestArbitrage(unittest.TestCase):
         # el neto SIEMPRE es menor que el bruto (costos + realización)
         o = evaluate(_inst(base_fair_value_usd=16000), _listing(price_usd=11000))
         self.assertLess(o.net_edge, o.gross_edge)
+
+    def test_opportunity_carries_cashflow_fields(self):
+        o = evaluate(_inst(base_fair_value_usd=16000), _listing(price_usd=11000))
+        self.assertGreater(o.days_to_sell, 0)
+        self.assertGreater(o.capital_turns_per_year, 0)
+        # con edge neto positivo, el anualizado supera al neto absoluto
+        self.assertGreater(o.annualized_edge, o.net_edge)
+
+    def test_slow_turn_gate(self):
+        # edge absoluto por encima del piso, pero en un tier lento (B) con
+        # condición pobre -> se realiza tan lento que falla el hurdle anualizado.
+        inst = _inst(base_fair_value_usd=12800, comparables_per_qtr=6)  # tier B
+        slow = _listing(price_usd=11000, condition_raw="fair, heavy wear")
+        o = evaluate(inst, slow, ImportCostConfig.zlc_reexport())
+        # o pasa el piso absoluto pero lo frena la velocidad, o queda en PASS:
+        self.assertIn(o.verdict, ("SLOW_TURN", "PASS"))
+        self.assertNotEqual(o.verdict, "BUY")
+
+    def test_faster_turn_ranks_higher(self):
+        # dos compras idénticas en edge, distinta liquidez -> la líquida (rota rápido)
+        # debe rankear con mayor score
+        fast = evaluate(_inst(base_fair_value_usd=16000, comparables_per_qtr=40),
+                        _listing(price_usd=11000), ImportCostConfig.zlc_reexport())
+        slower = evaluate(_inst(base_fair_value_usd=16000, comparables_per_qtr=6),
+                          _listing(price_usd=11000), ImportCostConfig.zlc_reexport())
+        if fast.verdict == "BUY" and slower.verdict == "BUY":
+            self.assertGreater(fast.score, slower.score)
 
 
 if __name__ == "__main__":

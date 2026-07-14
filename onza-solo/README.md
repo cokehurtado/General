@@ -40,6 +40,16 @@ fair_value_pieza = base_fair_value × mult_condición(grado) × ajuste(caja, pap
 
 **Realizable ≠ fair value.** Tú no vendes al *mid*, vendes al *bid* y pagas por realizar. El motor usa `realizable = fair_value × (1 − haircut(tier))`, para que el edge sea honesto (misma filosofía de "edge neto" de `onza/docs/07-motor-financiero.md`). Todos los porcentajes son **calibrables** contra tus cierres reales — ese es el objetivo del libro personal.
 
+## Factibilidad de venta y flujo de caja (`velocity.py`)
+
+El spread absoluto no basta: un edge de 20% que tarda 180 días es peor para el flujo de caja que uno de 12% que rota en 30, porque el capital inmovilizado no se recicla. Por eso el motor decide por **retorno por unidad de tiempo**, no por spread absoluto:
+
+- **Tiempo estimado de venta** (`expected_days_to_sell`): función de la liquidez del modelo (tier), la condición (full set/nuevo vende más rápido) y la demanda (premium sobre retail como proxy). Este mismo número alimenta el costo de capital, así todo es coherente.
+- **Retorno anualizado** = `(1 + edge_neto)^(365/días) − 1`. La métrica de decisión real. Convierte "13% en 34 días" en ~272%/año.
+- **Velocidad de capital** = `365/días` (vueltas/año): cuántas veces reciclas el mismo dinero. La traducción directa del flujo de caja.
+
+**Gate nuevo — `SLOW_TURN`:** aunque el edge absoluto pase el piso, si el retorno **anualizado** cae bajo tu retorno requerido (`MIN_ANNUALIZED_EDGE`, default 30%/año) el motor lo marca como rotación lenta y no lo compra: te ahorra inmovilizar capital en un trade que se ve bueno en % pero es malo en flujo. El **ranking** es por retorno anualizado ponderado por confianza (de precio y de tiempo), riesgo de salida y procedencia.
+
 ## El cálculo de arbitraje (edge neto)
 
 ```
@@ -56,8 +66,9 @@ net_edge     = (realizable − landed_cost) / landed_cost
 **Gates (vetos) antes de recomendar comprar:**
 1. `provenance_score < MIN_PROVENANCE` → **UNSAFE_SOURCE**, no comprar sin importar el edge.
 2. Tier de liquidez C/D y edge no excepcional → **ILLIQUID**, difícil de salir.
-3. `net_edge < umbral` → **PASS**.
-Si pasa los tres → **BUY**, con score = `net_edge × confianza × liquidez × procedencia`.
+3. `net_edge < MIN_NET_EDGE` → **PASS** (piso absoluto: no operar por márgenes triviales).
+4. `annualized_edge < MIN_ANNUALIZED_EDGE` → **SLOW_TURN** (rota tan lento que mata el flujo de caja).
+Si pasa los cuatro → **BUY**, con score = `retorno_anualizado × confianza × conf_tiempo × riesgo_salida × procedencia`.
 
 ## Estructura
 
@@ -70,7 +81,8 @@ onza-solo/
 │   ├── provenance.py   # scoring de proveedor + veto
 │   ├── costs.py        # modelo de costos de internación a Panamá (configurable)
 │   ├── pricing.py      # fair value de la pieza + tier + CI + realizable + señales retail
-│   ├── arbitrage.py    # edge neto + gates + score + ranking
+│   ├── velocity.py     # tiempo estimado de venta + retorno anualizado + velocidad de capital
+│   ├── arbitrage.py    # edge neto + retorno anualizado + gates + score + ranking
 │   └── scan.py         # CLI: carga fixtures, evalúa, imprime reporte
 ├── fixtures/listings.json   # listings de ejemplo (buenos y malos) para demostrar los gates
 └── tests/test_core.py       # tests con unittest (sin dependencias externas)

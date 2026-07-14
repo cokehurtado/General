@@ -20,6 +20,7 @@ from .universe import UNIVERSE
 _VERDICT_MARK = {
     "BUY": "✅ BUY",
     "PASS": "· PASS",
+    "SLOW_TURN": "🐢 SLOW",
     "ILLIQUID": "⚠ ILLIQUID",
     "UNSAFE_SOURCE": "⛔ UNSAFE",
 }
@@ -67,6 +68,11 @@ def main(argv: list[str]) -> int:
         print(
             f"   retail {retail_txt}  |  edge bruto {o.gross_edge:+.1%}  →  "
             f"edge NETO {o.net_edge:+.1%}  |  procedencia {o.provenance_score:.0f}/100"
+        )
+        print(
+            f"   ⏱ ~{o.days_to_sell}d a venta (conf {o.time_confidence:.0%})  →  "
+            f"retorno ANUALIZADO {o.annualized_edge:+.0%}  |  "
+            f"{o.capital_turns_per_year:.1f} vueltas de capital/año"
         )
         cb = o.cost_breakdown
         print(

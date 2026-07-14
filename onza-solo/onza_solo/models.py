@@ -103,6 +103,11 @@ class Opportunity:
     cost_breakdown: dict
     provenance_score: float
     provenance_flags: list
-    verdict: str                  # BUY | PASS | ILLIQUID | UNSAFE_SOURCE
-    score: float                  # ranking compuesto
+    verdict: str                  # BUY | PASS | ILLIQUID | SLOW_TURN | UNSAFE_SOURCE
+    score: float                  # ranking compuesto (anualizado)
+    # Factibilidad de venta / flujo de caja
+    days_to_sell: int             # tiempo estimado de venta
+    time_confidence: float        # confianza en esa estimación (0..1)
+    annualized_edge: float        # (1 + net_edge)^(365/días) - 1  ← métrica de decisión
+    capital_turns_per_year: float # velocidad de capital (365/días)
     notes: list = field(default_factory=list)

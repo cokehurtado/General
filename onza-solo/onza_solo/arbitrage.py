@@ -10,21 +10,16 @@ from __future__ import annotations
 from typing import Iterable
 
 from .models import Instrument, LiquidityTier, Listing, Opportunity
-from . import pricing, provenance
+from . import grading, pricing, provenance, velocity
 from .costs import ImportCostConfig, landed_cost
 
-# Umbral mínimo de edge neto para recomendar compra
+# Umbral mínimo de edge neto ABSOLUTO (piso: no operar por márgenes triviales)
 MIN_NET_EDGE = 0.10
-# En tier ilíquido (C/D) exigimos un edge mucho mayor para compensar el riesgo de salida
+# Umbral mínimo de retorno ANUALIZADO — la métrica de decisión real (flujo de caja).
+# Es tu retorno requerido sobre capital para este tipo de trading manual y riesgoso.
+MIN_ANNUALIZED_EDGE = 0.30
+# En tier ilíquido (C/D) exigimos un edge neto mayor para compensar el riesgo de salida
 ILLIQUID_MIN_NET_EDGE = 0.25
-
-# Días esperados en inventario por tier (para el costo de capital)
-_HOLD_DAYS = {
-    LiquidityTier.A: 45,
-    LiquidityTier.B: 75,
-    LiquidityTier.C: 120,
-    LiquidityTier.D: 180,
-}
 
 # Señal de "precio demasiado bueno": si el listing está muy por debajo del fair value,
 # es red flag de falsificación/fraude (se inyecta al scoring de procedencia).
@@ -44,11 +39,17 @@ def evaluate(
         listing.signals = {**(listing.signals or {}), "price_too_good_flag": True}
     prov_score, prov_flags = provenance.score_seller(listing)
 
-    hold_days = _HOLD_DAYS[priced.liquidity_tier]
+    # Factibilidad de venta: tiempo estimado (mismo número alimenta el costo de capital)
+    days_to_sell, time_conf = velocity.expected_days_to_sell(
+        priced.liquidity_tier,
+        priced.condition_grade,
+        premium_over_retail=priced.premium_over_retail,
+        full_set=grading.is_full_set(listing.has_box, listing.has_papers),
+    )
     breakdown = landed_cost(
         buy_price=listing.price_usd,
         value_for_customs=listing.price_usd,
-        hold_days=hold_days,
+        hold_days=days_to_sell,
         cfg=cfg,
     )
 
@@ -61,8 +62,12 @@ def evaluate(
     gross_edge = (priced.fair_value - listing.price_usd) / listing.price_usd
     net_edge = (priced.realizable_value - total_cost) / total_cost
 
+    # Retorno ajustado por tiempo (flujo de caja): la métrica de decisión real
+    annualized = velocity.annualized_return(net_edge, days_to_sell)
+    turns = velocity.capital_turns_per_year(days_to_sell)
+
     notes: list[str] = []
-    # --- Gates / vetos ---
+    # --- Gates / vetos (en orden de prioridad) ---
     if not provenance.is_safe_source(prov_score):
         verdict = "UNSAFE_SOURCE"
         notes.append(
@@ -77,25 +82,40 @@ def evaluate(
         )
     elif net_edge < MIN_NET_EDGE:
         verdict = "PASS"
-        notes.append(f"Edge neto {net_edge:.1%} < umbral {MIN_NET_EDGE:.0%}.")
+        notes.append(f"Edge neto {net_edge:.1%} < piso absoluto {MIN_NET_EDGE:.0%}.")
+    elif annualized < MIN_ANNUALIZED_EDGE:
+        # Edge absoluto ok, pero se realiza tan lento que el capital queda muerto.
+        verdict = "SLOW_TURN"
+        notes.append(
+            f"Rotación lenta: {net_edge:.1%} neto en ~{days_to_sell}d "
+            f"= {annualized:.0%}/año < {MIN_ANNUALIZED_EDGE:.0%} requerido. "
+            f"Malo para el flujo de caja."
+        )
     else:
         verdict = "BUY"
 
-    # Señales informativas
+    # Señales informativas (el tiempo/vueltas ya se muestra en su propia línea)
     if priced.below_retail:
         notes.append("Bajo retail (MSRP): señal fuerte si el modelo aprecia.")
     if priced.condition_grade.value in ("FAIR", "POOR"):
         notes.append("Condición baja: verificar costo de servicio antes de comprar.")
 
-    # Score compuesto para ranking (solo positivo si es BUY)
-    liquidity_factor = {
-        LiquidityTier.A: 1.0, LiquidityTier.B: 0.8,
-        LiquidityTier.C: 0.5, LiquidityTier.D: 0.3,
+    # Score compuesto para ranking: se rankea por retorno ANUALIZADO (flujo de caja),
+    # ponderado por confianza (fair value + tiempo) y procedencia. Exit-risk castiga ilíquidos.
+    exit_factor = {
+        LiquidityTier.A: 1.0, LiquidityTier.B: 0.85,
+        LiquidityTier.C: 0.6, LiquidityTier.D: 0.4,
     }[priced.liquidity_tier]
     provenance_factor = prov_score / 100.0
     score = 0.0
     if verdict == "BUY":
-        score = net_edge * priced.confidence_index * liquidity_factor * provenance_factor
+        score = (
+            annualized
+            * priced.confidence_index
+            * time_conf
+            * exit_factor
+            * provenance_factor
+        )
 
     return Opportunity(
         listing=listing,
@@ -108,6 +128,10 @@ def evaluate(
         provenance_flags=prov_flags,
         verdict=verdict,
         score=round(score, 5),
+        days_to_sell=days_to_sell,
+        time_confidence=round(time_conf, 2),
+        annualized_edge=round(annualized, 4),
+        capital_turns_per_year=round(turns, 2),
         notes=notes,
     )
 
