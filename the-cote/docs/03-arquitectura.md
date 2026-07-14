@@ -23,7 +23,7 @@ flowchart LR
     MATCH --> CAT[(Catálogo canónico)]
     CAT --> PRC[Motor de pricing]
     PRC --> ARB[Motor de arbitraje]
-    PRC --> IDX[Índice ONZA]
+    PRC --> IDX[Índice The Cote]
   end
 
   subgraph CorePlane["Plano transaccional (TypeScript)"]
@@ -60,7 +60,7 @@ flowchart LR
 | `catalog` | Catálogo canónico de instrumentos: marcas, familias, referencias, atributos, imágenes de referencia |
 | `pricing` | Fair value con intervalos de confianza; features de mercado (volatilidad, liquidez, spread); batch + on-demand |
 | `arbitrage` | Detección de spreads netos entre venues/regiones; scoring de oportunidades |
-| `index` | Índice ONZA 50 (metodología repeat-sales), sub-índices por marca/categoría |
+| `index` | Índice The Cote 50 (metodología repeat-sales), sub-índices por marca/categoría |
 
 ### Plano transaccional (`services/core` — TypeScript, monolito modular)
 | Módulo | Responsabilidad |
@@ -105,7 +105,7 @@ Decisiones:
 ## Estructura del monorepo
 
 ```
-onza/
+the-cote/
 ├── apps/
 │   ├── web/                  # Next.js: Terminal + Marketplace
 │   ├── mobile/               # Expo
@@ -142,7 +142,7 @@ Reglas del monorepo:
 ## Flujos críticos
 
 **Compra con escrow (Capa 2):**
-`oferta aceptada → escrow.funded (pago retenido) → vendedor envía a ONZA PTY → peritaje → item.authenticated → envío a comprador → confirmación/72h → escrow.released → payout − fee`
+`oferta aceptada → escrow.funded (pago retenido) → vendedor envía a The Cote PTY → peritaje → item.authenticated → envío a comprador → confirmación/72h → escrow.released → payout − fee`
 Implementado como workflow durable (Temporal): cada transición sobrevive reinicios, tiene timeouts y compensaciones (devolución si falla peritaje).
 
 **Ingesta de mercado (Capa 1):**

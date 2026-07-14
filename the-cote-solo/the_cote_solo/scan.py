@@ -1,9 +1,9 @@
 """CLI del scanner: carga fixtures, evalúa arbitraje e imprime un reporte.
 
 Uso:
-    python -m onza_solo.scan                 # usa fixtures/listings.json + config default
-    python -m onza_solo.scan --zlc           # usa config de reexportación ZLC (arancel/ITBMS ~0)
-    python -m onza_solo.scan path/al.json    # otro archivo de listings
+    python -m the_cote_solo.scan                 # usa fixtures/listings.json + config default
+    python -m the_cote_solo.scan --zlc           # usa config de reexportación ZLC (arancel/ITBMS ~0)
+    python -m the_cote_solo.scan path/al.json    # otro archivo de listings
 """
 
 from __future__ import annotations
@@ -87,7 +87,7 @@ def main(argv: list[str]) -> int:
     opps = scan(UNIVERSE, listings, cfg)
 
     scenario = "ZLC reexportación (arancel/ITBMS ~0)" if "--zlc" in flags else "importación uso propio"
-    print(f"\nONZA Solo · scanner de arbitraje  —  escenario de costos: {scenario}")
+    print(f"\nThe Cote Solo · scanner de arbitraje  —  escenario de costos: {scenario}")
     print(f"Universo: {len(UNIVERSE)} refs · Listings evaluados: {len(opps)}\n")
     print("=" * 92)
     _print_summary_table(opps)

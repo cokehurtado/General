@@ -1,4 +1,4 @@
-"""ONZA Solo — terminal personal de arbitraje de relojes (v0).
+"""The Cote Solo — terminal personal de arbitraje de relojes (v0).
 
 Núcleo computacional: fair value condición-aware, scoring de procedencia,
 costos de internación a Panamá y motor de arbitraje con edge neto.

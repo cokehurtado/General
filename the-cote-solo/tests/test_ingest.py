@@ -2,15 +2,15 @@
 
 import unittest
 
-from onza_solo.ingest.circuit_breaker import CircuitBreaker
-from onza_solo.ingest.extract import RuleBasedExtractor, ClaudeExtractor
-from onza_solo.ingest.normalize import payload_to_listing
-from onza_solo.ingest.raw_store import RawStore
-from onza_solo.ingest.scheduler import Scheduler
-from onza_solo.ingest.source import RawRecord, content_hash
-from onza_solo.ingest.sources.auction_feed import AuctionResultsSource
-from onza_solo.ingest.sources.paste_source import PasteSource
-from onza_solo.ingest.sources.protected import Chrono24Source
+from the_cote_solo.ingest.circuit_breaker import CircuitBreaker
+from the_cote_solo.ingest.extract import RuleBasedExtractor, ClaudeExtractor
+from the_cote_solo.ingest.normalize import payload_to_listing
+from the_cote_solo.ingest.raw_store import RawStore
+from the_cote_solo.ingest.scheduler import Scheduler
+from the_cote_solo.ingest.source import RawRecord, content_hash
+from the_cote_solo.ingest.sources.auction_feed import AuctionResultsSource
+from the_cote_solo.ingest.sources.paste_source import PasteSource
+from the_cote_solo.ingest.sources.protected import Chrono24Source
 
 
 class TestRawStoreIdempotency(unittest.TestCase):

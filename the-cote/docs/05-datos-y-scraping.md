@@ -6,7 +6,7 @@
 
 | Tier | Fuente | Valor del dato | Riesgo legal | Prioridad |
 |---|---|---|---|---|
-| S | **Transacciones propias (ONZA Market)** | Precio de cierre real | Ninguno | Máxima (pero llega en Capa 2) |
+| S | **Transacciones propias (The Cote Market)** | Precio de cierre real | Ninguno | Máxima (pero llega en Capa 2) |
 | A | **Resultados de subastas** (Sotheby's, Christie's, Phillips, casas regionales) | Cierre real, público | Bajo (datos públicos) | Alta desde MVP |
 | A | **Feeds de dealers give-to-get** | Inventario + a veces cierres | Ninguno (consentido) | Alta — es también go-to-market |
 | B | **Chrono24, eBay, WatchBox, marketplaces** | Precio de lista + histórico | Medio (ToS, pero datos fácticos públicos) | Media |

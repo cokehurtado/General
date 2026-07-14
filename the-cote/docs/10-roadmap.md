@@ -23,7 +23,7 @@ Entregables:
 - Marketplace **curado** (no self-serve): listings de 20-30 dealers, ofertas on-platform.
 - Escrow v1 (transferencia a cuenta fiduciaria + ledger de doble entrada) + workflow de autenticación física (Temporal) + KYC (Sumsub).
 - Antifraude v1 (reglas + scoring básico), compliance/AML operativo.
-- Índice ONZA Watches v1 (aunque sea con datos limitados y etiquetado como beta).
+- Índice The Cote Watches v1 (aunque sea con datos limitados y etiquetado como beta).
 
 **KPIs / Gate:**
 - Cobertura: ≥60% del catálogo prioritario con ≥3 comparables; matching ≥95% precision.
@@ -58,17 +58,17 @@ Entregables:
 **Objetivo:** activar la Capa 3 (custodia) y las líneas de mayor margen; diversificar revenue más allá del take rate.
 
 Entregables:
-- **ONZA Vault:** custodia física en Panamá, pasaporte digital por pieza, transferencia de propiedad in-vault (settlement rápido), statements de portafolio.
+- **The Cote Vault:** custodia física en Panamá, pasaporte digital por pieza, transferencia de propiedad in-vault (settlement rápido), statements de portafolio.
 - **Financiamiento colateralizado** (línea 10): préstamos sobre colección en vault. Piloto con partner financiero.
 - **Market-maker interno** (agente #8) con capital acotado para profundizar liquidez y realizar arbitraje propio.
-- **Data como producto** maduro: índice ONZA citado en prensa, API monetizada, feeds para aseguradoras/bancos/casas de empeño.
+- **Data como producto** maduro: índice The Cote citado en prensa, API monetizada, feeds para aseguradoras/bancos/casas de empeño.
 - Bids reales pre-autorizados → primer "book" genuino en instrumentos tier A.
 - Ola 2 de expansión (Triángulo Norte).
 
 **KPIs / Gate:**
 - Piezas en vault y **rotación** (ventas por pieza) creciendo → validación del multiplicador de márgenes.
 - Revenue diversificado: take rate < X% del total (el resto: SaaS + datos + financiamiento).
-- Índice ONZA con citas externas (señal de moat de estándar).
+- Índice The Cote con citas externas (señal de moat de estándar).
 
 ## Fase 4 — Internacionalización (meses 30–36+)
 
@@ -76,7 +76,7 @@ Entregables:
 
 Entregables:
 - Entrada a **México y Colombia** con operación local (segundo hub logístico probable en México).
-- Índice ONZA como referencia regional del mercado del lujo.
+- Índice The Cote como referencia regional del mercado del lujo.
 - Expansión de categorías oportunista (arte, autos, coleccionables) donde el modelo de datos aplique.
 - Infraestructura B2B / white-label para boutiques y relojerías.
 

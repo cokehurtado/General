@@ -1,11 +1,11 @@
 """CLI de ingesta: demuestra la vía híbrida end-to-end, sin red ni API key.
 
-    python -m onza_solo.ingest.run
+    python -m the_cote_solo.ingest.run
         Corre el scheduler sobre las fuentes limpias habilitadas (subastas),
         guarda los cierres en el raw store y reporta. Muestra el gate de los
         sitios protegidos (apagados).
 
-    python -m onza_solo.ingest.run --paste "Rolex 124270 Explorer, USD 6300, full set, 2023"
+    python -m the_cote_solo.ingest.run --paste "Rolex 124270 Explorer, USD 6300, full set, 2023"
         Ingesta 'pega-el-texto': extrae los campos del anuncio, lo pasa por el
         motor de arbitraje y muestra el veredicto con todas las variables.
 
@@ -32,7 +32,7 @@ def _run_scheduled() -> None:
     sched = Scheduler(store)
     sources = [AuctionResultsSource(), Chrono24Source(), WatchChartsSource()]
 
-    print("\nONZA Solo · ingesta automatizada (tick del scheduler)\n" + "=" * 74)
+    print("\nThe Cote Solo · ingesta automatizada (tick del scheduler)\n" + "=" * 74)
     for rep in sched.run_all(sources):
         if rep.ok:
             print(f"✓ {rep.source:<18} nuevos {rep.new}  cambiados {rep.changed}  "
@@ -59,7 +59,7 @@ def _run_paste(text: str, cfg: ImportCostConfig) -> None:
         signals={"platform_verified": False, "account_age_months": 18,
                  "completed_sales": 25, "has_serial": True, "real_photos": True},
     )
-    print("\nONZA Solo · ingesta 'pega-el-texto'\n" + "=" * 74)
+    print("\nThe Cote Solo · ingesta 'pega-el-texto'\n" + "=" * 74)
     print("Campos extraídos:")
     for k, v in rec.payload.items():
         if k == "condition_raw":

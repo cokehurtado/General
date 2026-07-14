@@ -86,7 +86,7 @@ Arquitectura común a todos: cada agente es un servicio con (1) entrada tipada, 
 **Trabajo:** actuar como un roboadvisor del lujo: sugerir qué comprar/vender/mantener según objetivos del usuario.
 
 **Cómo:**
-- Sobre la colección del usuario (o watchlist): retorno esperado, riesgo (volatilidad por tier), concentración, correlación con el índice ONZA, liquidez.
+- Sobre la colección del usuario (o watchlist): retorno esperado, riesgo (volatilidad por tier), concentración, correlación con el índice The Cote, liquidez.
 - Sugerencias: "sobreexpuesto a Rolex deportivos; considera diversificar", "esta pieza superó su fair value +18%, ventana de venta", "instrumento X subvalorado con buena liquidez de salida".
 - **Disclaimers claros:** no es asesoría financiera regulada; son señales de mercado. (Riesgo regulatorio real — revisar con legal antes de lanzar en cada país.)
 
@@ -95,7 +95,7 @@ Arquitectura común a todos: cada agente es un servicio con (1) entrada tipada, 
 ---
 
 ## 8. Agente Market-Maker (interno, Fase 2-3)
-**Trabajo:** gestionar el inventario propio de ONZA que siembra liquidez.
+**Trabajo:** gestionar el inventario propio de The Cote que siembra liquidez.
 
 **Cómo:** con disciplina de quant — límites de posición por instrumento/marca, stop-loss, rotación máxima (p.ej. 90 días), tamaño de posición por Kelly fraccionado sobre el edge del arbitraje. Cotiza bids/asks para dar profundidad al book. Reporta P&L y exposición.
 

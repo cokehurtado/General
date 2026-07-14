@@ -21,13 +21,13 @@ Corolarios:
 
 ## El producto (tres capas, en orden)
 
-### Capa 1 — ONZA Terminal (el Bloomberg)
-Terminal de datos del lujo: precio justo, histórico, liquidez, spread LatAm vs global, alertas, screener de oportunidades, índice ONZA. Single-player mode: **útil para una persona sola, sin necesidad de que exista el marketplace**. Resuelve el cold-start.
+### Capa 1 — The Cote Terminal (el Bloomberg)
+Terminal de datos del lujo: precio justo, histórico, liquidez, spread LatAm vs global, alertas, screener de oportunidades, índice The Cote. Single-player mode: **útil para una persona sola, sin necesidad de que exista el marketplace**. Resuelve el cold-start.
 
-### Capa 2 — ONZA Market (el Chrono24 con escrow)
+### Capa 2 — The Cote Market (el Chrono24 con escrow)
 Marketplace transaccional con escrow, KYC/AML, autenticación física en Panamá y logística asegurada. Cada transacción alimenta la Capa 1 con el dato más valioso del mundo: **precio real de cierre**, que ningún scraper puede obtener.
 
-### Capa 3 — ONZA Vault (el Nasdaq)
+### Capa 3 — The Cote Vault (el Nasdaq)
 Custodia física en Panamá (idealmente en régimen de zona franca). El activo entra una vez, se autentica una vez, recibe un pasaporte digital, y luego se compra/vende N veces sin moverse. Habilita: trading instantáneo, ofertas bid/ask reales, préstamos con colateral, fracciones institucionales (fase tardía) y el order book genuino.
 
 ## Por qué ahora
@@ -41,13 +41,13 @@ Custodia física en Panamá (idealmente en régimen de zona franca). El activo e
 
 Panamá **no** es el mercado — 4.5M de habitantes no sostienen un marketplace de lujo. Panamá es el **hub**:
 
-| Ventaja | Implicación para ONZA |
+| Ventaja | Implicación para The Cote |
 |---|---|
 | Economía 100% dolarizada | Sin riesgo cambiario en el libro; precios regionales en USD, el idioma natural del lujo |
 | Zona Libre de Colón + regímenes de zona franca | Inventario en custodia con impuestos diferidos hasta que sale del país → el Vault puede recibir, autenticar y re-vender piezas de toda la región sin nacionalizarlas |
 | Hub de Copa Airlines (80+ destinos directos en las Américas) | Logística de ida y vuelta a todo LatAm en <24h para autenticación |
 | Centro bancario regional | Cuentas escrow/fiduciarias, adquirencia, y (con trabajo) financiamiento colateralizado |
-| Turismo de compras ya existente | Los compradores de la región ya viajan a Panamá a comprar lujo; ONZA formaliza ese flujo |
+| Turismo de compras ya existente | Los compradores de la región ya viajan a Panamá a comprar lujo; The Cote formaliza ese flujo |
 | Sin impuesto sobre ventas a bienes reexportados; jurisdicción pro-comercio | Márgenes y estructura holding limpia para VC |
 
 **El mercado es LatAm desde el día 1; Panamá es donde vive el vault, el equipo de autenticación y la entidad de escrow.** La demanda llega online; el activo pasa físicamente por Panamá solo cuando la transacción lo requiere (Capa 2) o una sola vez en su vida (Capa 3).
@@ -57,5 +57,5 @@ Panamá **no** es el mercado — 4.5M de habitantes no sostienen un marketplace 
 1. **Cada dato tiene barra de error.** Un fair value sin intervalo de confianza es una mentira. Con 4 ventas comparables no se reporta "vale $9,340", se reporta "$8,900–$9,800, confianza media". La honestidad estadística es marca.
 2. **El instrumento, no el listing.** El grafo de datos se organiza alrededor del **modelo canónico** (ref. 126710BLRO) como un ticker; los listings son cotizaciones de ese ticker en distintos venues.
 3. **Precio de cierre > precio de lista.** Todo el diseño de producto empuja a capturar precios reales de transacción (los nuestros, los de subastas, los reportados por dealers a cambio de acceso al terminal).
-4. **Compliance como feature, no como fricción.** Panamá carga estigma AML; ONZA lo invierte: KYC serio, trazabilidad de origen y pasaporte digital por pieza hacen que comprar en ONZA sea la forma *defendible* de comprar lujo en la región.
+4. **Compliance como feature, no como fricción.** Panamá carga estigma AML; The Cote lo invierte: KYC serio, trazabilidad de origen y pasaporte digital por pieza hacen que comprar en The Cote sea la forma *defendible* de comprar lujo en la región.
 5. **Todo modular, todo generable.** Cada servicio del monorepo es una unidad que Claude Code puede construir, testear y desplegar de forma aislada (ver backlog).

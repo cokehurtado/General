@@ -98,13 +98,13 @@ Spread neto:     ~5.8%  →  oportunidad real, pero muy por debajo del bruto
 ```
 La lección de producto: **publicar el spread bruto es engañar; el motor razona en neto.**
 
-## Índice ONZA
+## Índice The Cote
 
-**ONZA 50:** índice de precio del lujo, metodología **repeat-sales / hedónica** (como Case-Shiller, no media simple — evita el sesgo de composición cuando cambia qué se vende).
+**The Cote 50:** índice de precio del lujo, metodología **repeat-sales / hedónica** (como Case-Shiller, no media simple — evita el sesgo de composición cuando cambia qué se vende).
 - Universo: canasta ponderada de instrumentos tier A/B por capitalización de mercado estimada (liquidez × precio).
-- Sub-índices: ONZA Watches, ONZA Bags, ONZA Jewelry; y por marca (ONZA Rolex, ONZA Patek).
+- Sub-índices: The Cote Watches, The Cote Bags, The Cote Jewelry; y por marca (The Cote Rolex, The Cote Patek).
 - Rebalanceo trimestral, reglas públicas, valor histórico reconstruible.
-- **Objetivo estratégico:** que la prensa financiera regional cite "el índice ONZA" — ese es el moat de estándar (doc 02). Publicar un reporte trimestral del mercado del lujo LatAm es marketing y moat a la vez.
+- **Objetivo estratégico:** que la prensa financiera regional cite "el índice The Cote" — ese es el moat de estándar (doc 02). Publicar un reporte trimestral del mercado del lujo LatAm es marketing y moat a la vez.
 
 ## Backtesting y validación (no negociable)
 

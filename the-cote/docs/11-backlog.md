@@ -113,7 +113,7 @@
 
 ---
 
-## Epic 6 · Índice ONZA `[P1] [M] · data/index`
+## Epic 6 · Índice The Cote `[P1] [M] · data/index`
 **Objetivo:** el índice del lujo (doc 07).
 **Depende de:** Epics 4.
 **Módulo:** `data/index`.
@@ -121,7 +121,7 @@
 - **US-6.1** — Metodología repeat-sales/hedónica, universo tier A/B ponderado, reglas de rebalanceo público.
   *AC:* índice reconstruible sobre histórico; documento de metodología versionado.
 - **US-6.2** — Sub-índices por categoría y marca; serie histórica persistida.
-  *AC:* ONZA Watches + al menos un sub-índice de marca calculados.
+  *AC:* The Cote Watches + al menos un sub-índice de marca calculados.
 - **US-6.3** — Widget de índice en el terminal + endpoint público.
   *AC:* gráfico del índice renderiza; endpoint retorna serie.
 

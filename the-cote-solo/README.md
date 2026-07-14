@@ -1,8 +1,8 @@
-# ONZA Solo — terminal personal de arbitraje de relojes (v0)
+# The Cote Solo — terminal personal de arbitraje de relojes (v0)
 
-> El arranque en chico de la visión ONZA: una herramienta **para beneficio propio** de compra/venta de relojes, bajo el mismo modelo de mercado financiero. No es el marketplace — es la Capa 1 (Terminal) + el motor de arbitraje del market-maker, operados por una sola persona con su propio capital.
+> El arranque en chico de la visión The Cote: una herramienta **para beneficio propio** de compra/venta de relojes, bajo el mismo modelo de mercado financiero. No es el marketplace — es la Capa 1 (Terminal) + el motor de arbitraje del market-maker, operados por una sola persona con su propio capital.
 >
-> **Regla de oro:** mismo modelo de datos que el diseño grande (`onza/docs/03-arquitectura.md`), para que el día que quieras, esto *sea* la Capa 1 y no un prototipo desechable.
+> **Regla de oro:** mismo modelo de datos que el diseño grande (`the-cote/docs/03-arquitectura.md`), para que el día que quieras, esto *sea* la Capa 1 y no un prototipo desechable.
 
 ## Qué hace (y qué no)
 
@@ -14,7 +14,7 @@
 - Calcula el **edge neto** restando costos reales de **internación y transporte a Panamá**, costo de capital y provisión de riesgo.
 - Rankea oportunidades y mantiene un **libro personal** (P&L, días en inventario, precio objetivo de venta).
 
-**No hace (fuera de alcance de v0):** marketplace, escrow, KYC, otros usuarios, móvil, vault, otras categorías. Todo eso es el diseño grande en `onza/`.
+**No hace (fuera de alcance de v0):** marketplace, escrow, KYC, otros usuarios, móvil, vault, otras categorías. Todo eso es el diseño grande en `the-cote/`.
 
 ## Los cinco requisitos que definiste (y cómo se implementan)
 
@@ -38,7 +38,7 @@ fair_value_pieza = base_fair_value × mult_condición(grado) × ajuste(caja, pap
 - Sin **papeles** descuenta más que sin **caja** (los papeles valen más en el mercado real).
 - **Pulido** (polished) penaliza (afecta originalidad).
 
-**Realizable ≠ fair value.** Tú no vendes al *mid*, vendes al *bid* y pagas por realizar. El motor usa `realizable = fair_value × (1 − haircut(tier))`, para que el edge sea honesto (misma filosofía de "edge neto" de `onza/docs/07-motor-financiero.md`). Todos los porcentajes son **calibrables** contra tus cierres reales — ese es el objetivo del libro personal.
+**Realizable ≠ fair value.** Tú no vendes al *mid*, vendes al *bid* y pagas por realizar. El motor usa `realizable = fair_value × (1 − haircut(tier))`, para que el edge sea honesto (misma filosofía de "edge neto" de `the-cote/docs/07-motor-financiero.md`). Todos los porcentajes son **calibrables** contra tus cierres reales — ese es el objetivo del libro personal.
 
 ## Factibilidad de venta y flujo de caja (`velocity.py`)
 
@@ -73,8 +73,8 @@ Si pasa los cuatro → **BUY**, con score = `retorno_anualizado × confianza × 
 ## Estructura
 
 ```
-onza-solo/
-├── onza_solo/
+the-cote-solo/
+├── the_cote_solo/
 │   ├── models.py       # dataclasses: Instrument, Listing, PricedPiece, Opportunity + enum Condition
 │   ├── universe.py     # universo curado (seed) de refs con retail y base_fair_value
 │   ├── grading.py      # taxonomía de condición + normalizador + ajustes caja/papeles/pulido
@@ -85,20 +85,23 @@ onza-solo/
 │   ├── arbitrage.py    # edge neto + retorno anualizado + gates + score + ranking
 │   └── scan.py         # CLI: carga fixtures, evalúa, imprime reporte
 ├── fixtures/listings.json   # listings de ejemplo (buenos y malos) para demostrar los gates
-└── tests/test_core.py       # tests con unittest (sin dependencias externas)
+├── tests/                   # tests con unittest (sin dependencias externas)
+└── web/terminal.html        # mockup del terminal (UI): screener, analizador, libro — abre en el navegador
 ```
+
+La UI vive en [`web/terminal.html`](web/terminal.html) — mockup navegable del terminal (acción-primero, banda de confianza, alertas, filas accionables) con la identidad de marca **The Cote** (navy + crema, wordmark serif con el dispositivo `_`). Ábrelo directo en el navegador; corre sin backend, con los números reales del motor.
 
 ## Cómo correrlo (sin instalar nada)
 
 Python 3.10+ de la stdlib, cero dependencias externas para v0:
 
 ```bash
-cd onza-solo
-python -m onza_solo.scan            # corre el scanner sobre los fixtures e imprime oportunidades
+cd the-cote-solo
+python -m the_cote_solo.scan            # corre el scanner sobre los fixtures e imprime oportunidades
 python -m unittest discover tests   # corre los tests
 ```
 
-## Ingesta automatizada (`onza_solo/ingest/`)
+## Ingesta automatizada (`the_cote_solo/ingest/`)
 
 Capa de entrada de datos con dos vías, ambas corren sin red ni API key:
 
@@ -114,8 +117,8 @@ Capa de entrada de datos con dos vías, ambas corren sin red ni API key:
 **Sitios protegidos = gate legal.** `Chrono24Source` y `WatchChartsSource` existen como adapters **deshabilitados**: la arquitectura está lista, pero no corren hasta que haya una vía legítima (API/partner o feed licenciado). Ver §"Riesgos legales" abajo.
 
 ```bash
-python -m onza_solo.ingest.run                          # tick del scheduler (subastas)
-python -m onza_solo.ingest.run --paste "GMT 126710BLRO USD 16800 full set 2022"   # pega-el-texto
+python -m the_cote_solo.ingest.run                          # tick del scheduler (subastas)
+python -m the_cote_solo.ingest.run --paste "GMT 126710BLRO USD 16800 full set 2022"   # pega-el-texto
 ```
 
 Distinción de diseño: `record_type='sale'` (cierres, calibran fair value) vs `record_type='offer'` (anuncios comprables, se escanean como arbitraje).
@@ -136,7 +139,7 @@ La vía defendible: APIs oficiales + subastas públicas + feeds licenciados + el
 
 - **Fuentes elegidas para v0:** Chrono24 + resultados de subastas + WatchCharts (benchmark). Las más limpias legal y estadísticamente.
 - **Estado actual:** el núcleo corre con `fixtures/listings.json` (datos de ejemplo) y un universo *seed* con valores **ilustrativos** — el valor de v0 es el **método**, no los números semilla.
-- **Ya construido:** la capa de ingesta (`onza_solo/ingest/`) con la vía híbrida (subastas + pega-el-texto) y los sitios protegidos tras el gate legal.
+- **Ya construido:** la capa de ingesta (`the_cote_solo/ingest/`) con la vía híbrida (subastas + pega-el-texto) y los sitios protegidos tras el gate legal.
 - **Paso siguiente:** (a) cablear los cierres ingestados al motor de pricing (que hoy usa `base_fair_value` estático del universo) para que el fair value se calibre con datos reales; (b) conectar la Claude API real en `ClaudeExtractor`; (c) sumar un adapter de API oficial (eBay Browse) para listings activos.
 
 ## Advertencia honesta

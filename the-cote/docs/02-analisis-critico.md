@@ -60,15 +60,15 @@ Un Rolex Submariner tiene liquidez; un Vacheron de producción limitada vende 3 
 
 ## Moats sostenibles (en orden de solidez)
 
-1. **Datos transaccionales propietarios de LatAm** — cada cierre en ONZA es un datapoint que no existe en ningún otro dataset del mundo. Compuesto: más transacciones → mejor fair value → más consultas → más transacciones.
+1. **Datos transaccionales propietarios de LatAm** — cada cierre en The Cote es un datapoint que no existe en ningún otro dataset del mundo. Compuesto: más transacciones → mejor fair value → más consultas → más transacciones.
 2. **La red física** — vault + laboratorio de autenticación + corredor logístico PTY. Capital y años; un competidor de software no lo copia con un fork.
 3. **Rail de confianza regulado** — escrow bancario + KYC/AML + seguro. Las licencias y relaciones bancarias en la región son lentas de obtener: eso es exactamente lo que las hace moat.
 4. **Red de dealers give-to-get** — el dealer aporta su inventario y precios de cierre a cambio del terminal y la demanda; su costo de cambiar de plataforma crece con su historial de reputación acumulado.
-5. **El índice como estándar** — si el "índice ONZA" se cita en prensa financiera regional, somos el precio de referencia por default (el moat de Case-Shiller y CoinMarketCap).
+5. **El índice como estándar** — si el "índice The Cote" se cita en prensa financiera regional, somos el precio de referencia por default (el moat de Case-Shiller y CoinMarketCap).
 
 ## Cómo ser 10x mejor que un marketplace tradicional
 
-| Marketplace tradicional | ONZA |
+| Marketplace tradicional | The Cote |
 |---|---|
 | Lista productos | Cotiza **instrumentos** con fair value, historial y liquidez |
 | El comprador adivina el precio | Barra de error, comparables y spread vs global visibles en cada listing |
@@ -78,7 +78,7 @@ Un Rolex Submariner tiene liquidez; un Vacheron de producción limitada vende 3 
 | Vende cuando alguien pregunta | Alertas estilo broker: "tu reloj subió 12% este trimestre; hay 3 bids activos a $X" |
 | Comisión sobre transacción | Transacción + datos + suscripción + financiamiento + custodia + seguros |
 
-**La frase para el pitch deck:** *un marketplace tradicional te ayuda a vender tu reloj; ONZA convierte tu colección en un portafolio.*
+**La frase para el pitch deck:** *un marketplace tradicional te ayuda a vender tu reloj; The Cote convierte tu colección en un portafolio.*
 
 ## Decisiones de cofundador (posiciones tomadas, no opciones)
 

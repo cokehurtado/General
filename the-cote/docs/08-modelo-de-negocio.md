@@ -40,7 +40,7 @@ Palancas: bajar costo de pago moviendo ticket alto a transferencia bancaria a es
 
 ## Estrategia de pricing
 
-- **Take rate escalonado por ticket:** menor % en tickets altos (para no espantar el Patek de $80k a WhatsApp), mayor % en tickets bajos. Benchmark: Chrono24 ~6.5% comprador; StockX ~9–12%; casas de subasta 10–25% total. ONZA apunta a 6–10% *con* servicios incluidos que WhatsApp no da.
+- **Take rate escalonado por ticket:** menor % en tickets altos (para no espantar el Patek de $80k a WhatsApp), mayor % en tickets bajos. Benchmark: Chrono24 ~6.5% comprador; StockX ~9–12%; casas de subasta 10–25% total. The Cote apunta a 6–10% *con* servicios incluidos que WhatsApp no da.
 - **Dealer SaaS:** tiers (Starter / Pro / Enterprise) por # de listings, acceso a datos y arbitraje. Ancla de valor: "un solo buen arbitraje al mes paga la suscripción del año".
 - **Terminal Pro (consumidor):** freemium. Gratis: fair value básico, 1 watchlist. Pro (~$20-40/mes): alertas, portfolio, histórico completo, sin límites.
 - **Data/API:** metered + contratos enterprise (aseguradoras, bancos).

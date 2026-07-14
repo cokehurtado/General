@@ -5,10 +5,10 @@ Corre con:  python -m unittest discover tests
 
 import unittest
 
-from onza_solo import grading, pricing, provenance, velocity
-from onza_solo.arbitrage import evaluate, MIN_NET_EDGE
-from onza_solo.costs import ImportCostConfig
-from onza_solo.models import Condition, Instrument, LiquidityTier, Listing
+from the_cote_solo import grading, pricing, provenance, velocity
+from the_cote_solo.arbitrage import evaluate, MIN_NET_EDGE
+from the_cote_solo.costs import ImportCostConfig
+from the_cote_solo.models import Condition, Instrument, LiquidityTier, Listing
 
 
 def _inst(**kw):
@@ -83,13 +83,13 @@ class TestPricing(unittest.TestCase):
 
 class TestCosts(unittest.TestCase):
     def test_landed_cost_positive(self):
-        from onza_solo.costs import landed_cost
+        from the_cote_solo.costs import landed_cost
         b = landed_cost(11000, 11000, 45, ImportCostConfig())
         self.assertGreater(b["total"], 0)
         self.assertGreater(b["itbms"], 0)
 
     def test_zlc_zeroes_duty_and_tax(self):
-        from onza_solo.costs import landed_cost
+        from the_cote_solo.costs import landed_cost
         b = landed_cost(11000, 11000, 45, ImportCostConfig.zlc_reexport())
         self.assertEqual(b["duty"], 0)
         self.assertEqual(b["itbms"], 0)

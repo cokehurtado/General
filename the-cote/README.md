@@ -1,15 +1,19 @@
-# ONZA — El mercado financiero del lujo en Latinoamérica
+# The Cote — El mercado financiero del lujo en Latinoamérica
+
+<p align="center"><img src="assets/the-cote-logo.png" alt="The Cote" width="360"></p>
 
 > **Bloomberg + Nasdaq + Chrono24 para activos de lujo.**
 > Compra, vende, valora e invierte en relojes, carteras y joyería con datos de mercado en tiempo real.
 
 **HQ y mercado inicial:** Panamá 🇵🇦 · **Ambición:** el marketplace + terminal de datos de lujo #1 de LatAm.
 
+> **Marca:** *The Cote* — de *la cote*, la cotización / precio de referencia. El producto es el precio de referencia del lujo. Identidad: wordmark serif de alto contraste navy sobre crema, con el dispositivo `_` (cursor de terminal). Paleta navy + crema (claro) / navy profundo (oscuro). Logo en [`assets/the-cote-logo.png`](assets/the-cote-logo.png).
+
 ---
 
 ## Qué es este repositorio
 
-Este es el paquete fundacional de ONZA: tesis, análisis crítico, arquitectura técnica, diseño de agentes de IA, motor financiero, modelo de negocio, estrategia de expansión, roadmap a 3 años y un backlog ejecutable por Claude Code, módulo por módulo.
+Este es el paquete fundacional de The Cote: tesis, análisis crítico, arquitectura técnica, diseño de agentes de IA, motor financiero, modelo de negocio, estrategia de expansión, roadmap a 3 años y un backlog ejecutable por Claude Code, módulo por módulo.
 
 ## La tesis en 5 líneas
 
@@ -29,7 +33,7 @@ Este es el paquete fundacional de ONZA: tesis, análisis crítico, arquitectura 
 | 04 | [Stack tecnológico](docs/04-stack.md) | Decisiones de stack justificadas, capa por capa |
 | 05 | [Datos y scraping](docs/05-datos-y-scraping.md) | Motor de ingesta distribuido, ETL, versionado, matching |
 | 06 | [Agentes de IA](docs/06-agentes-ia.md) | Los 8 agentes: matching, pricing, arbitraje, autenticación, antifraude, negociación, inversión, market-making |
-| 07 | [Motor financiero](docs/07-motor-financiero.md) | Fair value, métricas Bloomberg-style, motor de arbitraje, índice ONZA 50 |
+| 07 | [Motor financiero](docs/07-motor-financiero.md) | Fair value, métricas Bloomberg-style, motor de arbitraje, índice The Cote 50 |
 | 08 | [Modelo de negocio](docs/08-modelo-de-negocio.md) | 12 líneas de ingreso, unit economics, pricing |
 | 09 | [Expansión](docs/09-expansion.md) | Panamá → Centroamérica → México/Colombia |
 | 10 | [Roadmap 3 años](docs/10-roadmap.md) | 4 fases, milestones, KPIs por fase |
