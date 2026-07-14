@@ -1,0 +1,208 @@
+/* Golf Club Second-Hand Tracker — dashboard styles */
+
+:root {
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --series-1: #2a78d6; /* P770 irons */
+  --series-2: #1baf7a; /* Qi4D driver */
+  --series-3: #eda100; /* Qi4D 3 wood */
+  --good: #0ca30c;
+  --good-text: #006300;
+  --warn: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --chip-bg: rgba(11, 11, 11, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --series-1: #3987e5;
+    --series-2: #199e70;
+    --series-3: #c98500;
+    --good-text: #0ca30c;
+    --chip-bg: rgba(255, 255, 255, 0.07);
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 24px 20px 64px; }
+
+header h1 { font-size: 24px; margin: 0 0 4px; }
+header .sub { color: var(--ink-2); margin: 0; }
+header .meta { color: var(--muted); font-size: 13px; margin-top: 6px; }
+
+.banner {
+  background: color-mix(in srgb, var(--warn) 16%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--warn) 50%, transparent);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 16px 0 0;
+  font-size: 14px;
+}
+
+/* --- stat tiles --- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.tile .club {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--ink-2); font-weight: 600;
+}
+.tile .swatch { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.tile .value { font-size: 30px; font-weight: 700; margin: 6px 0 2px; }
+.tile .delta { font-size: 13px; color: var(--ink-2); }
+.tile .delta .down { color: var(--good-text); font-weight: 600; }
+.tile .delta .up { color: var(--serious); font-weight: 600; }
+.tile a.view {
+  display: inline-block; margin-top: 8px; font-size: 13px;
+  color: var(--series-1); text-decoration: none;
+}
+.tile a.view:hover { text-decoration: underline; }
+.tile .empty { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+/* --- cards --- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 0 0 24px;
+}
+.card-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
+}
+.card-head h2 { font-size: 16px; margin: 0; }
+.card-head .hint { color: var(--muted); font-size: 13px; }
+
+/* --- chart --- */
+.legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 4px 0 10px; }
+.legend .item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; color: var(--ink-2);
+}
+.legend .swatch { width: 14px; height: 4px; border-radius: 2px; }
+
+#chart { position: relative; }
+#chart svg { display: block; width: 100%; height: auto; }
+#chart .tooltip {
+  position: absolute; pointer-events: none; z-index: 5;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  padding: 8px 11px; font-size: 12.5px; min-width: 170px; display: none;
+}
+#chart .tooltip .t-date { color: var(--muted); margin-bottom: 4px; }
+#chart .tooltip .t-row {
+  display: flex; align-items: center; gap: 6px; margin-top: 2px;
+  color: var(--ink-2);
+}
+#chart .tooltip .t-row b { color: var(--ink); margin-left: auto; font-variant-numeric: tabular-nums; }
+#chart .tooltip .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+.chart-actions { display: flex; gap: 8px; }
+button.ghost {
+  background: none; border: 1px solid var(--border); color: var(--ink-2);
+  border-radius: 7px; padding: 5px 12px; font: inherit; font-size: 13px;
+  cursor: pointer;
+}
+button.ghost:hover { background: var(--chip-bg); }
+button.ghost[aria-pressed="true"] { background: var(--chip-bg); color: var(--ink); }
+
+#historyTable { overflow-x: auto; }
+
+/* --- filters --- */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 16px; }
+.filters button {
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--ink-2); border-radius: 999px; padding: 6px 14px;
+  font: inherit; font-size: 13.5px; cursor: pointer;
+}
+.filters button:hover { background: var(--chip-bg); }
+.filters button[aria-pressed="true"] {
+  color: var(--ink); font-weight: 600;
+  border-color: var(--ink-2);
+}
+
+/* --- listings --- */
+.club-section h2 {
+  font-size: 17px; margin: 26px 0 4px;
+  display: flex; align-items: center; gap: 9px;
+}
+.club-section h2 .swatch { width: 11px; height: 11px; border-radius: 3px; }
+.club-section .stats-line { color: var(--ink-2); font-size: 13.5px; margin: 0 0 10px; }
+
+.table-scroll { overflow-x: auto; }
+table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
+}
+th, td { text-align: left; padding: 9px 12px; border-top: 1px solid var(--grid); }
+thead th {
+  border-top: none; font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--muted); background: var(--chip-bg);
+}
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.title-cell { max-width: 420px; }
+td.title-cell a { color: var(--ink); text-decoration: none; font-weight: 500; }
+td.title-cell a:hover { text-decoration: underline; color: var(--series-1); }
+.tag {
+  display: inline-block; font-size: 11px; padding: 1px 7px;
+  border-radius: 999px; background: var(--chip-bg); color: var(--ink-2);
+  margin-left: 6px; vertical-align: 1px; white-space: nowrap;
+}
+.tag.new { background: color-mix(in srgb, var(--series-1) 15%, transparent); color: var(--series-1); font-weight: 700; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 2px 9px;
+  border-radius: 999px; white-space: nowrap;
+}
+.badge.great { background: color-mix(in srgb, var(--good) 15%, transparent); color: var(--good-text); }
+.badge.good { background: color-mix(in srgb, var(--good) 9%, transparent); color: var(--good-text); }
+.badge.fair { background: var(--chip-bg); color: var(--ink-2); }
+.badge.high { background: color-mix(in srgb, var(--serious) 15%, transparent); color: var(--serious); }
+
+.empty-state {
+  background: var(--surface); border: 1px dashed var(--baseline);
+  border-radius: 10px; padding: 22px; text-align: center; color: var(--muted);
+}
+
+footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
+footer a { color: var(--ink-2); }
+
+@media (max-width: 640px) {
+  .tile .value { font-size: 24px; }
+  td.title-cell { max-width: 240px; }
+}

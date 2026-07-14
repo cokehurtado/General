@@ -1,0 +1,926 @@
+{
+  "generatedAt": "2026-07-14T01:18:31+00:00",
+  "demo": true,
+  "currency": "USD",
+  "clubs": [
+    {
+      "id": "p770-irons",
+      "label": "P770 Irons",
+      "fullName": "TaylorMade P770 Irons (stiff)",
+      "retailPrice": 1399,
+      "referenceUsedPrice": 1000,
+      "marketMedian": 1133.75,
+      "reference": 1000,
+      "stats": {
+        "count": 11,
+        "min": 964.95,
+        "p25": 1003.96,
+        "median": 1133.75
+      },
+      "listings": [
+        {
+          "itemId": "demo-p770-irons-3",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW KBS Tour Stiff Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20KBS%20Tour%20Stiff%20Right%20Handed",
+          "image": "",
+          "price": 964.95,
+          "shipping": 0.0,
+          "total": 964.95,
+          "condition": "Seller refurbished",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer447",
+            "feedbackPct": "100.0",
+            "feedbackScore": 3472
+          },
+          "endDate": "",
+          "dealPct": 3.5,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-p770-irons-2",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW KBS Tour Stiff Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20KBS%20Tour%20Stiff%20Right%20Handed",
+          "image": "",
+          "price": 967.07,
+          "shipping": 0.0,
+          "total": 967.07,
+          "condition": "Used - Excellent",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer185",
+            "feedbackPct": "99.0",
+            "feedbackScore": 1871
+          },
+          "endDate": "",
+          "dealPct": 3.3,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-p770-irons-6",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Dynamic Gold 105 S300 Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Dynamic%20Gold%20105%20S300%20Right%20Handed",
+          "image": "",
+          "price": 1003.96,
+          "shipping": 0.0,
+          "total": 1003.96,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer115",
+            "feedbackPct": "97.5",
+            "feedbackScore": 4192
+          },
+          "endDate": "",
+          "dealPct": -0.4,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-p770-irons-7",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Project X LZ 6.0 Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Project%20X%20LZ%206.0%20Right%20Handed",
+          "image": "",
+          "price": 1082.98,
+          "shipping": 0.0,
+          "total": 1082.98,
+          "condition": "Seller refurbished",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer774",
+            "feedbackPct": "99.5",
+            "feedbackScore": 3590
+          },
+          "endDate": "",
+          "dealPct": -8.3,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-p770-irons-8",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Modus 105 Stiff Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Modus%20105%20Stiff%20Right%20Handed",
+          "image": "",
+          "price": 1097.94,
+          "shipping": 19.99,
+          "total": 1117.93,
+          "condition": "Used - Good",
+          "buyingOption": "AUCTION",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer320",
+            "feedbackPct": "100.0",
+            "feedbackScore": 2857
+          },
+          "endDate": "",
+          "dealPct": -11.8,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-p770-irons-4",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Dynamic Gold 105 S300 Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Dynamic%20Gold%20105%20S300%20Right%20Handed",
+          "image": "",
+          "price": 1133.75,
+          "shipping": 0.0,
+          "total": 1133.75,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer265",
+            "feedbackPct": "98.2",
+            "feedbackScore": 1533
+          },
+          "endDate": "",
+          "dealPct": -13.4,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-p770-irons-10",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW KBS Tour Stiff Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20KBS%20Tour%20Stiff%20Right%20Handed",
+          "image": "",
+          "price": 1135.52,
+          "shipping": 12.95,
+          "total": 1148.47,
+          "condition": "Seller refurbished",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer156",
+            "feedbackPct": "97.7",
+            "feedbackScore": 3170
+          },
+          "endDate": "",
+          "dealPct": -14.8,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-p770-irons-1",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Modus 105 Stiff Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Modus%20105%20Stiff%20Right%20Handed",
+          "image": "",
+          "price": 1170.95,
+          "shipping": 0.0,
+          "total": 1170.95,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024",
+            "NEW"
+          ],
+          "seller": {
+            "username": "golfer918",
+            "feedbackPct": "99.2",
+            "feedbackScore": 3534
+          },
+          "endDate": "",
+          "dealPct": -17.1,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-p770-irons-0",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Dynamic Gold 105 S300 Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Dynamic%20Gold%20105%20S300%20Right%20Handed",
+          "image": "",
+          "price": 1197.1,
+          "shipping": 19.99,
+          "total": 1217.09,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024",
+            "NEW"
+          ],
+          "seller": {
+            "username": "golfer252",
+            "feedbackPct": "98.8",
+            "feedbackScore": 4267
+          },
+          "endDate": "",
+          "dealPct": -21.7,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-p770-irons-9",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Project X LZ 6.0 Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Project%20X%20LZ%206.0%20Right%20Handed",
+          "image": "",
+          "price": 1233.26,
+          "shipping": 0.0,
+          "total": 1233.26,
+          "condition": "Seller refurbished",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer155",
+            "feedbackPct": "99.6",
+            "feedbackScore": 166
+          },
+          "endDate": "",
+          "dealPct": -23.3,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-p770-irons-5",
+          "title": "TaylorMade P770 2024 Iron Set 4-PW Project X LZ 6.0 Right Handed",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20P770%202024%20Iron%20Set%204-PW%20Project%20X%20LZ%206.0%20Right%20Handed",
+          "image": "",
+          "price": 1280.49,
+          "shipping": 12.95,
+          "total": 1293.44,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "2024"
+          ],
+          "seller": {
+            "username": "golfer556",
+            "feedbackPct": "98.8",
+            "feedbackScore": 1507
+          },
+          "endDate": "",
+          "dealPct": -29.3,
+          "rating": "high"
+        }
+      ]
+    },
+    {
+      "id": "qi4d-driver",
+      "label": "Qi4D Driver",
+      "fullName": "TaylorMade Qi4D Driver (stiff)",
+      "retailPrice": 650,
+      "referenceUsedPrice": 520,
+      "marketMedian": 557.49,
+      "reference": 520,
+      "stats": {
+        "count": 16,
+        "min": 454.11,
+        "p25": 531.46,
+        "median": 557.49
+      },
+      "listings": [
+        {
+          "itemId": "demo-qi4d-driver-7",
+          "title": "TaylorMade Qi4D Driver 9.0° Ventus Blue 6 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Ventus%20Blue%206%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 454.11,
+          "shipping": 0.0,
+          "total": 454.11,
+          "condition": "Used - Excellent",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer832",
+            "feedbackPct": "99.9",
+            "feedbackScore": 3216
+          },
+          "endDate": "",
+          "dealPct": 12.7,
+          "rating": "good"
+        },
+        {
+          "itemId": "demo-qi4d-driver-5",
+          "title": "TaylorMade Qi4D Driver 9.0° Ventus Blue 6 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Ventus%20Blue%206%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 512.77,
+          "shipping": 0.0,
+          "total": 512.77,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer378",
+            "feedbackPct": "98.3",
+            "feedbackScore": 407
+          },
+          "endDate": "",
+          "dealPct": 1.4,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-driver-12",
+          "title": "TaylorMade Qi4D Driver 9.0° Ventus Blue 6 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Ventus%20Blue%206%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 500.5,
+          "shipping": 19.99,
+          "total": 520.49,
+          "condition": "Seller refurbished",
+          "buyingOption": "AUCTION",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer557",
+            "feedbackPct": "97.9",
+            "feedbackScore": 1138
+          },
+          "endDate": "",
+          "dealPct": -0.1,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-driver-14",
+          "title": "TaylorMade Qi4D Driver 9.0° Tensei AV Blue 65 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Tensei%20AV%20Blue%2065%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 512.02,
+          "shipping": 12.95,
+          "total": 524.97,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer353",
+            "feedbackPct": "98.0",
+            "feedbackScore": 1979
+          },
+          "endDate": "",
+          "dealPct": -1.0,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-driver-1",
+          "title": "TaylorMade Qi4D Driver 9.0° Ventus Blue 6 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Ventus%20Blue%206%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 518.51,
+          "shipping": 12.95,
+          "total": 531.46,
+          "condition": "Seller refurbished",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "NEW"
+          ],
+          "seller": {
+            "username": "golfer674",
+            "feedbackPct": "99.9",
+            "feedbackScore": 1749
+          },
+          "endDate": "",
+          "dealPct": -2.2,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-driver-15",
+          "title": "TaylorMade Qi4D Driver 9.0° Diamana T+ 60 Stiff Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Diamana%20T%2B%2060%20Stiff%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 518.9,
+          "shipping": 24.99,
+          "total": 543.89,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer166",
+            "feedbackPct": "98.5",
+            "feedbackScore": 2064
+          },
+          "endDate": "",
+          "dealPct": -4.6,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-driver-0",
+          "title": "TaylorMade Qi4D Driver 9.0° Ventus Blue 6 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Ventus%20Blue%206%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 526.58,
+          "shipping": 19.99,
+          "total": 546.57,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "NEW"
+          ],
+          "seller": {
+            "username": "golfer553",
+            "feedbackPct": "97.9",
+            "feedbackScore": 73
+          },
+          "endDate": "",
+          "dealPct": -5.1,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-2",
+          "title": "TaylorMade Qi4D Driver 9.0° HZRDUS Black S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20HZRDUS%20Black%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 537.87,
+          "shipping": 12.95,
+          "total": 550.82,
+          "condition": "Seller refurbished",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer150",
+            "feedbackPct": "99.3",
+            "feedbackScore": 1653
+          },
+          "endDate": "",
+          "dealPct": -5.9,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-13",
+          "title": "TaylorMade Qi4D Driver 9.0° HZRDUS Black S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20HZRDUS%20Black%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 564.15,
+          "shipping": 0.0,
+          "total": 564.15,
+          "condition": "Used - Excellent",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer400",
+            "feedbackPct": "98.2",
+            "feedbackScore": 2242
+          },
+          "endDate": "",
+          "dealPct": -8.5,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-10",
+          "title": "TaylorMade Qi4D Driver 9.0° Ventus Blue 6 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Ventus%20Blue%206%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 576.99,
+          "shipping": 19.99,
+          "total": 596.98,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer517",
+            "feedbackPct": "97.7",
+            "feedbackScore": 327
+          },
+          "endDate": "",
+          "dealPct": -14.8,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-11",
+          "title": "TaylorMade Qi4D Driver 9.0° HZRDUS Black S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20HZRDUS%20Black%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 587.25,
+          "shipping": 12.95,
+          "total": 600.2,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer207",
+            "feedbackPct": "100.0",
+            "feedbackScore": 2219
+          },
+          "endDate": "",
+          "dealPct": -15.4,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-3",
+          "title": "TaylorMade Qi4D Driver 9.0° Tensei AV Blue 65 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Tensei%20AV%20Blue%2065%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 584.47,
+          "shipping": 19.99,
+          "total": 604.46,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer472",
+            "feedbackPct": "99.3",
+            "feedbackScore": 3937
+          },
+          "endDate": "",
+          "dealPct": -16.2,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-4",
+          "title": "TaylorMade Qi4D Driver 9.0° Ventus Blue 6 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Ventus%20Blue%206%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 607.18,
+          "shipping": 0.0,
+          "total": 607.18,
+          "condition": "Seller refurbished",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer484",
+            "feedbackPct": "97.6",
+            "feedbackScore": 562
+          },
+          "endDate": "",
+          "dealPct": -16.8,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-9",
+          "title": "TaylorMade Qi4D Driver 9.0° Diamana T+ 60 Stiff Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Diamana%20T%2B%2060%20Stiff%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 601.03,
+          "shipping": 12.95,
+          "total": 613.98,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer470",
+            "feedbackPct": "99.5",
+            "feedbackScore": 4930
+          },
+          "endDate": "",
+          "dealPct": -18.1,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-6",
+          "title": "TaylorMade Qi4D Driver 9.0° Tensei AV Blue 65 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Tensei%20AV%20Blue%2065%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 636.1,
+          "shipping": 12.95,
+          "total": 649.05,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer103",
+            "feedbackPct": "99.3",
+            "feedbackScore": 4928
+          },
+          "endDate": "",
+          "dealPct": -24.8,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-driver-8",
+          "title": "TaylorMade Qi4D Driver 9.0° Tensei AV Blue 65 S Stiff RH w/ Headcover",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%20Driver%209.0%C2%B0%20Tensei%20AV%20Blue%2065%20S%20Stiff%20RH%20w/%20Headcover",
+          "image": "",
+          "price": 678.21,
+          "shipping": 19.99,
+          "total": 698.2,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer287",
+            "feedbackPct": "97.5",
+            "feedbackScore": 2534
+          },
+          "endDate": "",
+          "dealPct": -34.3,
+          "rating": "high"
+        }
+      ]
+    },
+    {
+      "id": "qi4d-3wood",
+      "label": "Qi4D 3 Wood",
+      "fullName": "TaylorMade Qi4D 3 Wood (stiff)",
+      "retailPrice": 380,
+      "referenceUsedPrice": 300,
+      "marketMedian": 315.65,
+      "reference": 300,
+      "stats": {
+        "count": 11,
+        "min": 268.27,
+        "p25": 289.3,
+        "median": 315.65
+      },
+      "listings": [
+        {
+          "itemId": "demo-qi4d-3wood-1",
+          "title": "TaylorMade Qi4D 3 Wood 15° Tensei AV Raw Blue 75 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Tensei%20AV%20Raw%20Blue%2075%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 268.27,
+          "shipping": 0.0,
+          "total": 268.27,
+          "condition": "Used - Very Good",
+          "buyingOption": "AUCTION",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "NEW"
+          ],
+          "seller": {
+            "username": "golfer758",
+            "feedbackPct": "99.1",
+            "feedbackScore": 605
+          },
+          "endDate": "",
+          "dealPct": 10.6,
+          "rating": "good"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-0",
+          "title": "TaylorMade Qi4D 3 Wood 15° Ventus Blue 7 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Ventus%20Blue%207%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 268.89,
+          "shipping": 0.0,
+          "total": 268.89,
+          "condition": "Used - Excellent",
+          "buyingOption": "AUCTION",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [
+            "NEW"
+          ],
+          "seller": {
+            "username": "golfer265",
+            "feedbackPct": "98.4",
+            "feedbackScore": 1211
+          },
+          "endDate": "",
+          "dealPct": 10.4,
+          "rating": "good"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-9",
+          "title": "TaylorMade Qi4D 3 Wood 15° Diamana T+ 70 Stiff Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Diamana%20T%2B%2070%20Stiff%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 289.3,
+          "shipping": 0.0,
+          "total": 289.3,
+          "condition": "Used - Very Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer880",
+            "feedbackPct": "99.4",
+            "feedbackScore": 492
+          },
+          "endDate": "",
+          "dealPct": 3.6,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-3",
+          "title": "TaylorMade Qi4D 3 Wood 15° Tensei AV Raw Blue 75 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Tensei%20AV%20Raw%20Blue%2075%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 273.79,
+          "shipping": 19.99,
+          "total": 293.78,
+          "condition": "Used - Excellent",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer310",
+            "feedbackPct": "98.0",
+            "feedbackScore": 327
+          },
+          "endDate": "",
+          "dealPct": 2.1,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-2",
+          "title": "TaylorMade Qi4D 3 Wood 15° Tensei AV Raw Blue 75 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Tensei%20AV%20Raw%20Blue%2075%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 270.93,
+          "shipping": 24.99,
+          "total": 295.92,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer937",
+            "feedbackPct": "99.9",
+            "feedbackScore": 4423
+          },
+          "endDate": "",
+          "dealPct": 1.4,
+          "rating": "fair"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-10",
+          "title": "TaylorMade Qi4D 3 Wood 15° Ventus Blue 7 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Ventus%20Blue%207%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 315.65,
+          "shipping": 0.0,
+          "total": 315.65,
+          "condition": "Seller refurbished",
+          "buyingOption": "AUCTION",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer915",
+            "feedbackPct": "99.6",
+            "feedbackScore": 4101
+          },
+          "endDate": "",
+          "dealPct": -5.2,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-5",
+          "title": "TaylorMade Qi4D 3 Wood 15° Diamana T+ 70 Stiff Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Diamana%20T%2B%2070%20Stiff%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 311.39,
+          "shipping": 19.99,
+          "total": 331.38,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer459",
+            "feedbackPct": "98.1",
+            "feedbackScore": 2365
+          },
+          "endDate": "",
+          "dealPct": -10.5,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-6",
+          "title": "TaylorMade Qi4D 3 Wood 15° Ventus Blue 7 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Ventus%20Blue%207%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 370.29,
+          "shipping": 12.95,
+          "total": 383.24,
+          "condition": "Used - Good",
+          "buyingOption": "AUCTION",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer615",
+            "feedbackPct": "98.7",
+            "feedbackScore": 2406
+          },
+          "endDate": "",
+          "dealPct": -27.7,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-8",
+          "title": "TaylorMade Qi4D 3 Wood 15° Diamana T+ 70 Stiff Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Diamana%20T%2B%2070%20Stiff%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 368.64,
+          "shipping": 24.99,
+          "total": 393.63,
+          "condition": "Used - Very Good",
+          "buyingOption": "AUCTION",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer982",
+            "feedbackPct": "99.6",
+            "feedbackScore": 4756
+          },
+          "endDate": "",
+          "dealPct": -31.2,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-7",
+          "title": "TaylorMade Qi4D 3 Wood 15° Tensei AV Raw Blue 75 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Tensei%20AV%20Raw%20Blue%2075%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 374.73,
+          "shipping": 19.99,
+          "total": 394.72,
+          "condition": "Used - Excellent",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer631",
+            "feedbackPct": "99.4",
+            "feedbackScore": 2890
+          },
+          "endDate": "",
+          "dealPct": -31.6,
+          "rating": "high"
+        },
+        {
+          "itemId": "demo-qi4d-3wood-4",
+          "title": "TaylorMade Qi4D 3 Wood 15° Ventus Blue 7 S Stiff Right Hand",
+          "url": "https://www.ebay.com/sch/i.html?_nkw=TaylorMade%20Qi4D%203%20Wood%2015%C2%B0%20Ventus%20Blue%207%20S%20Stiff%20Right%20Hand",
+          "image": "",
+          "price": 404.96,
+          "shipping": 0.0,
+          "total": 404.96,
+          "condition": "Used - Good",
+          "buyingOption": "FIXED_PRICE",
+          "flex": "stiff",
+          "dexterity": "right",
+          "tags": [],
+          "seller": {
+            "username": "golfer202",
+            "feedbackPct": "97.8",
+            "feedbackScore": 1729
+          },
+          "endDate": "",
+          "dealPct": -35.0,
+          "rating": "high"
+        }
+      ]
+    }
+  ]
+}

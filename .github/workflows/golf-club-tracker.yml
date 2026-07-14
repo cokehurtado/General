@@ -1,0 +1,49 @@
+name: Golf Club Tracker
+
+on:
+  schedule:
+    # Twice a day (UTC) — morning and evening US time.
+    - cron: "17 12 * * *"
+    - cron: "17 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check credentials
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+        run: |
+          if [ -z "$EBAY_CLIENT_ID" ]; then
+            echo "::warning::EBAY_CLIENT_ID / EBAY_CLIENT_SECRET secrets are not set." \
+                 "Add them in Settings → Secrets and variables → Actions (see golf-club-tracker/README.md)."
+            exit 1
+          fi
+
+      - name: Fetch listings
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+        run: python3 golf-club-tracker/tracker.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "golf-club-tracker[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add golf-club-tracker/data
+          if git diff --cached --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "chore: update golf club price data ($(date -u +%F))"
+            git push
+          fi

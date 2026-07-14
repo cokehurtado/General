@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Golf Club Second-Hand Tracker</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%B3%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>⛳ Golf Club Second-Hand Tracker</h1>
+      <p class="sub">Watching the used market for <strong>TaylorMade P770 irons</strong>, <strong>Qi4D driver</strong> and <strong>Qi4D 3&nbsp;wood</strong> — stiff shaft, right-handed.</p>
+      <p class="meta" id="updatedAt"></p>
+      <div class="banner" id="demoBanner" hidden>
+        ⚠️ <strong>Demo data.</strong> These are simulated listings so you can preview the dashboard.
+        Run <code>python3 tracker.py</code> with your eBay API keys to pull real listings — see the README.
+      </div>
+    </header>
+
+    <section class="tiles" id="tiles" aria-label="Best current price per club"></section>
+
+    <section class="card" aria-label="Price history">
+      <div class="card-head">
+        <h2>Median asking price — last 90 days</h2>
+        <div class="chart-actions">
+          <button class="ghost" id="tableToggle" aria-pressed="false">Table view</button>
+        </div>
+      </div>
+      <div class="legend" id="legend"></div>
+      <div id="chart"></div>
+      <div id="historyTable" hidden></div>
+    </section>
+
+    <section aria-label="Listings">
+      <div class="filters" id="filters" role="group" aria-label="Filter by club"></div>
+      <div id="listings"></div>
+    </section>
+
+    <footer>
+      Data source: eBay Browse API (used &amp; refurbished listings, price + shipping).
+      Deal ratings compare each listing's total cost against the current market median
+      or your configured reference price, whichever is lower. Prices in <span id="ccy">USD</span>.
+    </footer>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

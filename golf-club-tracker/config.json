@@ -1,0 +1,63 @@
+{
+  "marketplace": "EBAY_US",
+  "currency": "USD",
+  "dexterity": "right",
+  "conditions": ["USED", "SELLER_REFURBISHED", "CERTIFIED_REFURBISHED"],
+  "acceptFlex": ["stiff", "unknown"],
+  "excludeKeywords": [
+    "head only",
+    "heads only",
+    "shaft only",
+    "shafts only",
+    "headcover",
+    "head cover",
+    "cover only",
+    "single iron",
+    "individual iron",
+    "left hand",
+    "left handed",
+    "left-handed",
+    "ladies",
+    "womens",
+    "women's",
+    "junior",
+    "broken",
+    "for parts"
+  ],
+  "clubs": [
+    {
+      "id": "p770-irons",
+      "label": "P770 Irons",
+      "fullName": "TaylorMade P770 Irons (stiff)",
+      "query": "taylormade p770 iron set",
+      "categoryIds": ["115280"],
+      "retailPrice": 1399,
+      "referenceUsedPrice": 1000,
+      "priceRange": [400, 1600],
+      "extraExcludeKeywords": ["p790", "p7mc", "p7mb", "p7cb", "p760", "p730", "single", "one iron", "1 iron only"]
+    },
+    {
+      "id": "qi4d-driver",
+      "label": "Qi4D Driver",
+      "fullName": "TaylorMade Qi4D Driver (stiff)",
+      "query": "taylormade qi4d driver",
+      "categoryIds": ["115280"],
+      "retailPrice": 650,
+      "referenceUsedPrice": 520,
+      "priceRange": [200, 800],
+      "extraExcludeKeywords": ["qi10", "qi35", "mini driver", "fairway", "3 wood", "5 wood", "hybrid", "rescue"]
+    },
+    {
+      "id": "qi4d-3wood",
+      "label": "Qi4D 3 Wood",
+      "fullName": "TaylorMade Qi4D 3 Wood (stiff)",
+      "query": "taylormade qi4d fairway wood",
+      "categoryIds": ["115280"],
+      "retailPrice": 380,
+      "referenceUsedPrice": 300,
+      "priceRange": [100, 500],
+      "woodNumber": 3,
+      "extraExcludeKeywords": ["qi10", "qi35", "driver", "hybrid", "rescue"]
+    }
+  ]
+}
