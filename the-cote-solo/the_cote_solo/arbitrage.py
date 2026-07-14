@@ -30,9 +30,10 @@ def evaluate(
     instrument: Instrument,
     listing: Listing,
     cfg: ImportCostConfig | None = None,
+    sales=None,
 ) -> Opportunity:
     cfg = cfg or ImportCostConfig()
-    priced = pricing.price_piece(instrument, listing)
+    priced = pricing.price_piece(instrument, listing, sales=sales)
 
     # Inyecta la señal de precio anómalo al scoring de procedencia
     if listing.price_usd < priced.fair_value * _TOO_GOOD_RATIO:
@@ -140,17 +141,19 @@ def scan(
     instruments_by_ref: dict[str, Instrument],
     listings: Iterable[Listing],
     cfg: ImportCostConfig | None = None,
+    sales=None,
 ) -> list[Opportunity]:
     """Evalúa todos los listings con instrumento conocido y los rankea.
 
     BUY primero (por score desc); luego el resto por edge neto desc.
+    `sales` (SalesBook) calibra el fair value con cierres reales si se pasa.
     """
     opps: list[Opportunity] = []
     for lst in listings:
         inst = instruments_by_ref.get(lst.ref)
         if inst is None:
             continue  # ref no está en el universo curado
-        opps.append(evaluate(inst, lst, cfg))
+        opps.append(evaluate(inst, lst, cfg, sales=sales))
 
     opps.sort(key=lambda o: (o.verdict != "BUY", -o.score, -o.net_edge))
     return opps

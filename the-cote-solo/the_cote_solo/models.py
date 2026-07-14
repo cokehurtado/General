@@ -89,6 +89,8 @@ class PricedPiece:
     premium_over_retail: Optional[float]   # fair_value_fullset / retail - 1
     below_retail: Optional[bool]           # listing.price < retail
     below_fair_value: bool                 # listing.price < fair_value de la pieza
+    calibrated: bool = False               # baseline vino de cierres reales, no del seed
+    n_sales: int = 0                       # cuántos cierres calibraron el baseline
 
 
 @dataclass

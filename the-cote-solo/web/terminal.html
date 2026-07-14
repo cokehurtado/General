@@ -6,7 +6,7 @@
     --gold:#34506E; --gold2:#5E7EA0;
     --buy:#1E9E5A; --buy-bg:#1E9E5A12; --warn:#A87A18; --warn-bg:#A87A1814;
     --danger:#C6462E; --danger-bg:#C6462E10; --pos:#1E9E5A; --neg:#C6462E;
-    --serif:ui-serif,"New York","Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --serif:"Didot","Bodoni 72","Bodoni MT",ui-serif,"New York","Playfair Display","Iowan Old Style",Palatino,Georgia,serif;
     --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
@@ -472,4 +472,60 @@ if(!window.matchMedia("(prefers-reduced-motion:reduce)").matches)setInterval(dra
 window.addEventListener("resize",redraw);
 new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 const mq=window.matchMedia("(prefers-color-scheme:dark)");mq.addEventListener&&mq.addEventListener("change",redraw);
+</script>
+
+<script>
+/* Integración con el motor real (server.py). Si la página se abre como archivo
+   (file://) usa los datos embebidos; si se sirve por HTTP, consume el motor. */
+if(location.protocol.startsWith("http")){
+  PILL.illiq="Ilíquido";
+  const _origAnalyze=analyze;   // fallback cliente si no hay motor (p.ej. artifact estático)
+  const CI={A:0.06,B:0.12,C:0.22,D:0.35};
+  async function loadScan(s){try{const r=await fetch("/api/scan?scenario="+s);if(r.ok)DEALS[s]=await r.json();}catch(e){}}
+  setScenario=async function(s){
+    scenario=s;
+    document.getElementById("s-import").setAttribute("aria-pressed",s==="import");
+    document.getElementById("s-zlc").setAttribute("aria-pressed",s==="zlc");
+    await loadScan(s); renderScreener(DEALS[s]);
+    if(document.getElementById("vcard").classList.contains("show")) analyze();
+  };
+  analyze=async function(){
+    const text=document.getElementById("paste").value,el=document.getElementById("vcard");
+    el.className="verdict-card show";
+    try{
+      const r=await fetch("/api/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,scenario})});
+      const d=await r.json();
+      if(d.error){el.innerHTML='<p style="color:var(--muted);font-size:12.5px;margin:0">'+d.error+'</p>';return;}
+      const ci=CI[d.tier]||0.1,lo=Math.round(d.fv*(1-ci)),hi=Math.round(d.fv*(1+ci)),pf=d.pflags||d.flags||[];
+      el.innerHTML=`
+        <div class="vc-head"><span class="vc-model">${d.name} <span class="mref">${d.ref}</span></span><span class="pill ${d.v}"><i></i>${PILL[d.v]}</span></div>
+        <div class="band-lbl"><span>Precio vs. fair value</span><b>${usd(d.fv)}</b></div>
+        ${band(d.price,d.fv,d.tier)}
+        <div class="band-meta"><span>rango ${usd(lo)}–${usd(hi)} (±${(ci*100).toFixed(0)}%)</span><span>tier ${d.tier} · ${d.ncomp} comparables</span><span class="fresh-chip">● ${d.upd==="calibrado"?"calibrado con cierres reales":"valor semilla"}</span></div>
+        <div class="metricgrid">
+          <div class="m"><div class="k">Spread neto</div><div class="v ${cls(d.net)}">${pct(d.net)}</div></div>
+          <div class="m"><div class="k">Anualizado</div><div class="v ${d.an==null?'':cls(d.an)}">${d.an==null?'∞':pct(d.an,0)}</div></div>
+          <div class="m"><div class="k">Días a venta</div><div class="v">${d.d}d</div></div>
+        </div>
+        <div class="provbox"><div class="ptop"><span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Procedencia</span><span class="pscore" style="color:${d.prov>=55?'var(--ink)':'var(--danger)'}">${d.prov}/100</span></div>
+          ${pf.length?`<ul>${pf.map(f=>`<li>${f}</li>`).join("")}</ul>`:'<div style="color:var(--pos);font-size:12px">✓ Fuente confiable</div>'}
+          ${d.prov<55?'<div style="color:var(--danger);font-size:11.5px;margin-top:7px">⛔ Veto: no comprar sin importar el edge.</div>':''}</div>
+        <div class="actions">
+          <button class="act primary" onclick="toast('Guardado en watchlist')">＋ Watchlist</button>
+          <button class="act" onclick="toast('Iniciaría verificación de procedencia')">Verificar vendedor</button>
+          <button class="act" onclick="toast('Registrado — calibra el modelo')">Registrar compra</button>
+        </div>`;
+    }catch(e){_origAnalyze();}   // sin motor: usa el cálculo cliente embebido
+  };
+  fetch("/api/portfolio").then(r=>r.json()).then(d=>{
+    if(!d.positions)return;
+    document.getElementById("bookbody").innerHTML=d.positions.map(b=>{
+      const label=b.sig==="sell"?"Vender · en objetivo":(b.sig==="review"?"Revisar · rota lento":"Mantener");
+      return `<tr><td class="model"><span class="mname">${b.name}</span><span class="mref">${b.ref}</span></td>
+        <td class="mono">${usd(b.buy)}</td><td class="mono">${usd(b.fv)}</td><td class="mono ${cls(b.pnl)}">${(b.pnl>0?'+':'')+usd(b.pnl)}</td>
+        <td class="mono ${cls(b.pct)}">${pct(b.pct)}</td><td class="mono">${b.d}d</td><td class="mono">${b.tgt?usd(b.tgt):'—'}</td>
+        <td class="l"><span class="sig ${b.sig}">${label}</span></td></tr>`;}).join("");
+  }).catch(()=>{});
+  setScenario(scenario);
+}
 </script>

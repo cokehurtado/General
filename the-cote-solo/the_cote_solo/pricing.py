@@ -9,8 +9,10 @@ Combina el base_fair_value del instrumento con el grading de la pieza y produce:
 
 from __future__ import annotations
 
+from typing import Optional
+
 from .models import Condition, Instrument, LiquidityTier, Listing, PricedPiece
-from . import grading
+from . import comparables, grading
 
 # Tier de liquidez a partir de comparables/trimestre (mismo criterio que doc 07)
 def liquidity_tier(comparables_per_qtr: int) -> LiquidityTier:
@@ -48,12 +50,24 @@ _CONFIDENCE_BASE = {
 }
 
 
-def price_piece(instrument: Instrument, listing: Listing) -> PricedPiece:
+def price_piece(instrument: Instrument, listing: Listing,
+                sales: Optional["comparables.SalesBook"] = None) -> PricedPiece:
     grade = grading.grade_from_description(listing.condition_raw)
     mult = grading.condition_multiplier(
         grade, listing.has_box, listing.has_papers, listing.polished
     )
-    fair_value = instrument.base_fair_value_usd * mult
+
+    # Baseline calibrado con cierres reales si los hay; si no, valor semilla.
+    baseline = instrument.base_fair_value_usd
+    calibrated = False
+    n_sales = 0
+    if sales is not None:
+        est = comparables.calibrated_fair_value(sales.for_ref(instrument.ref))
+        if est is not None:
+            baseline, n_sales = est[0], est[1]
+            calibrated = True
+
+    fair_value = baseline * mult
 
     tier = liquidity_tier(instrument.comparables_per_qtr)
     ci = _CI_WIDTH[tier]
@@ -67,7 +81,7 @@ def price_piece(instrument: Instrument, listing: Listing) -> PricedPiece:
     premium = None
     below_retail = None
     if instrument.retail_usd:
-        premium = instrument.base_fair_value_usd / instrument.retail_usd - 1
+        premium = baseline / instrument.retail_usd - 1
         below_retail = listing.price_usd < instrument.retail_usd
 
     below_fv = listing.price_usd < fair_value
@@ -86,4 +100,6 @@ def price_piece(instrument: Instrument, listing: Listing) -> PricedPiece:
         premium_over_retail=round(premium, 4) if premium is not None else None,
         below_retail=below_retail,
         below_fair_value=below_fv,
+        calibrated=calibrated,
+        n_sales=n_sales,
     )

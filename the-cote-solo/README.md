@@ -83,13 +83,18 @@ the-cote-solo/
 │   ├── pricing.py      # fair value de la pieza + tier + CI + realizable + señales retail
 │   ├── velocity.py     # tiempo estimado de venta + retorno anualizado + velocidad de capital
 │   ├── arbitrage.py    # edge neto + retorno anualizado + gates + score + ranking
+│   ├── comparables.py  # calibración del fair value con cierres reales (cierra el loop ingesta→pricing)
+│   ├── portfolio.py    # libro personal: posiciones, P&L, señales de salida, calibración por venta
+│   ├── server.py       # servidor local (stdlib): sirve el terminal + API del motor real
 │   └── scan.py         # CLI: carga fixtures, evalúa, imprime reporte
 ├── fixtures/listings.json   # listings de ejemplo (buenos y malos) para demostrar los gates
 ├── tests/                   # tests con unittest (sin dependencias externas)
 └── web/terminal.html        # mockup del terminal (UI): screener, analizador, libro — abre en el navegador
 ```
 
-La UI vive en [`web/terminal.html`](web/terminal.html) — mockup navegable del terminal (acción-primero, banda de confianza, alertas, filas accionables) con la identidad de marca **The Cote** (navy + crema, wordmark serif con el dispositivo `_`). Ábrelo directo en el navegador; corre sin backend, con los números reales del motor.
+La UI vive en [`web/terminal.html`](web/terminal.html) — el terminal (acción-primero, banda de confianza, alertas, filas accionables) con la identidad **The Cote** (navy + crema, wordmark serif con el dispositivo `_`). Dos modos:
+- **Estático:** ábrelo directo en el navegador → datos embebidos de demo.
+- **Conectado al motor:** `python -m the_cote_solo.server` → abre `http://127.0.0.1:8000`; el screener, el analizador y el libro consumen el motor real (fair value calibrado con cierres).
 
 ## Cómo correrlo (sin instalar nada)
 
@@ -97,9 +102,20 @@ Python 3.10+ de la stdlib, cero dependencias externas para v0:
 
 ```bash
 cd the-cote-solo
-python -m the_cote_solo.scan            # corre el scanner sobre los fixtures e imprime oportunidades
-python -m unittest discover tests   # corre los tests
+python -m the_cote_solo.scan             # scanner de arbitraje sobre los fixtures
+python -m the_cote_solo.ingest.run       # ingesta + calibración del fair value con cierres reales
+python -m the_cote_solo.portfolio        # libro personal: posiciones, P&L y señales de salida
+python -m the_cote_solo.server           # terminal en http://127.0.0.1:8000, sobre el motor real
+python -m unittest discover tests        # corre los 49 tests
 ```
+
+## Calibración del fair value (`comparables.py`)
+
+El fair value ya **no es semilla**: se calibra con cierres reales ingestados (subastas/eBay/ventas propias), siguiendo doc 07 — normaliza cada cierre a la condición baseline, pondera por recencia y calidad de fuente, y promedia. Si una referencia no tiene ≥2 cierres, cae al valor semilla. `python -m the_cote_solo.ingest.run` muestra el efecto (seed → calibrado, con Δ%). Cada **venta que registras en el libro** es un cierre propio de calidad máxima que recalibra el modelo: ese es el loop del moat.
+
+## Libro personal (`portfolio.py`)
+
+Registra compras/ventas (SQLite stdlib), calcula P&L no realizado contra el fair value actual, días en inventario y una **señal de salida** por velocidad: `SELL` (llegó al objetivo), `REVIEW` (rota más lento de lo esperado), `HOLD`. Las ventas cerradas alimentan la calibración (cierres propios) y la estimación de tiempo (días-a-venta realizados).
 
 ## Ingesta automatizada (`the_cote_solo/ingest/`)
 

@@ -40,12 +40,29 @@ def _run_scheduled() -> None:
         else:
             print(f"· {rep.source:<18} omitida — {rep.skipped_reason}")
 
-    sales = store.count("sale")
-    refs = sorted({r['payload'].get('ref') for r in store.records('sale')})
+    # Cablea los cierres al motor: calibra el fair value con datos reales.
+    from ..comparables import SalesBook, calibrated_fair_value
+    from ..universe import UNIVERSE
+    book = SalesBook()
+    book.add_records(store.records("sale"), source="auction")
+
     print("-" * 74)
-    print(f"{sales} precios de cierre en el raw store (record_type='sale').")
-    print(f"Calibrarían el fair value de: {', '.join(str(x) for x in refs)}")
-    print("(Cablear estos cierres al motor de pricing es el paso siguiente documentado.)\n")
+    print(f"{store.count('sale')} cierres en el raw store → calibrando fair value:\n")
+    print(f"  {'REF':<12}{'SEED':>10}{'CALIBRADO':>12}{'Δ':>8}   cierres")
+    for ref in sorted(book.refs()):
+        inst = UNIVERSE.get(ref)
+        if not inst:
+            continue
+        est = calibrated_fair_value(book.for_ref(ref))
+        if est is None:
+            print(f"  {ref:<12}{('$'+format(inst.base_fair_value_usd,',.0f')):>10}"
+                  f"{'—':>12}{'(n<2)':>8}   {len(book.for_ref(ref))}")
+        else:
+            fv, n = est
+            delta = (fv / inst.base_fair_value_usd - 1) * 100
+            print(f"  {ref:<12}{('$'+format(inst.base_fair_value_usd,',.0f')):>10}"
+                  f"{('$'+format(fv,',.0f')):>12}{(('%+.1f' % delta)+'%'):>8}   {n}")
+    print("\nEl fair value ya no es semilla: usa tus cierres reales (doc 07).\n")
     store.close()
 
 
