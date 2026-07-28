@@ -1,48 +1,6 @@
 {
-  "comment": "Fuentes RSS del portal. Agrega, quita o edita libremente. Campos: id (único), name, category (Chile | Mundo | Economía | Tecnología u otra), url (feed RSS/Atom), homepage.",
+  "comment": "Fuentes RSS del portal. Agrega, quita o edita libremente. Campos: id (único), name, category (las pestañas se generan solas: Chile, Mundo, Economía, Política, Tecnología, Emprendimiento, IA…), url (feed RSS/Atom), homepage.",
   "feeds": [
-    {
-      "id": "bbc-mundo",
-      "name": "BBC Mundo",
-      "category": "Mundo",
-      "url": "https://feeds.bbci.co.uk/mundo/rss.xml",
-      "homepage": "https://www.bbc.com/mundo"
-    },
-    {
-      "id": "dw-espanol",
-      "name": "DW Español",
-      "category": "Mundo",
-      "url": "https://rss.dw.com/xml/rss-sp-all",
-      "homepage": "https://www.dw.com/es/"
-    },
-    {
-      "id": "france24-es",
-      "name": "France 24",
-      "category": "Mundo",
-      "url": "https://www.france24.com/es/rss",
-      "homepage": "https://www.france24.com/es/"
-    },
-    {
-      "id": "cnn-espanol",
-      "name": "CNN en Español",
-      "category": "Mundo",
-      "url": "https://cnnespanol.cnn.com/feed/",
-      "homepage": "https://cnnespanol.cnn.com/"
-    },
-    {
-      "id": "onu-noticias",
-      "name": "Noticias ONU",
-      "category": "Mundo",
-      "url": "https://news.un.org/feed/subscribe/es/news/all/rss.xml",
-      "homepage": "https://news.un.org/es/"
-    },
-    {
-      "id": "el-mostrador",
-      "name": "El Mostrador",
-      "category": "Chile",
-      "url": "https://www.elmostrador.cl/feed/",
-      "homepage": "https://www.elmostrador.cl/"
-    },
     {
       "id": "cooperativa",
       "name": "Cooperativa",
@@ -56,6 +14,13 @@
       "category": "Chile",
       "url": "https://www.emol.com/rss/rss.asp?canal=nacional",
       "homepage": "https://www.emol.com/"
+    },
+    {
+      "id": "el-mostrador",
+      "name": "El Mostrador",
+      "category": "Chile",
+      "url": "https://www.elmostrador.cl/feed/",
+      "homepage": "https://www.elmostrador.cl/"
     },
     {
       "id": "ciper",
@@ -72,6 +37,48 @@
       "homepage": "https://www.theclinic.cl/"
     },
     {
+      "id": "la-tercera",
+      "name": "La Tercera",
+      "category": "Chile",
+      "url": "https://www.latercera.com/arc/outboundfeeds/rss/?outputType=xml",
+      "homepage": "https://www.latercera.com/"
+    },
+    {
+      "id": "adn-radio",
+      "name": "ADN Radio",
+      "category": "Chile",
+      "url": "https://news.google.com/rss/search?q=site:adnradio.cl&hl=es-419&gl=CL&ceid=CL:es-419",
+      "homepage": "https://www.adnradio.cl/"
+    },
+    {
+      "id": "el-mercurio",
+      "name": "El Mercurio",
+      "category": "Chile",
+      "url": "https://news.google.com/rss/search?q=site:elmercurio.com&hl=es-419&gl=CL&ceid=CL:es-419",
+      "homepage": "https://www.elmercurio.com/"
+    },
+    {
+      "id": "diario-financiero",
+      "name": "Diario Financiero",
+      "category": "Economía",
+      "url": "https://news.google.com/rss/search?q=site:df.cl&hl=es-419&gl=CL&ceid=CL:es-419",
+      "homepage": "https://www.df.cl/"
+    },
+    {
+      "id": "bbc-mundo",
+      "name": "BBC Mundo",
+      "category": "Mundo",
+      "url": "https://feeds.bbci.co.uk/mundo/rss.xml",
+      "homepage": "https://www.bbc.com/mundo"
+    },
+    {
+      "id": "cnn-espanol",
+      "name": "CNN en Español",
+      "category": "Mundo",
+      "url": "https://cnnespanol.cnn.com/feed/",
+      "homepage": "https://cnnespanol.cnn.com/"
+    },
+    {
       "id": "emol-economia",
       "name": "Emol Economía",
       "category": "Economía",
@@ -79,11 +86,130 @@
       "homepage": "https://www.emol.com/economia/"
     },
     {
+      "id": "nyt-economy",
+      "name": "NY Times Economy",
+      "category": "Economía",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml",
+      "homepage": "https://www.nytimes.com/section/business/economy"
+    },
+    {
+      "id": "bloomberg-economics",
+      "name": "Bloomberg Economics",
+      "category": "Economía",
+      "url": "https://feeds.bloomberg.com/economics/news.rss",
+      "homepage": "https://www.bloomberg.com/economics"
+    },
+    {
+      "id": "bloomberg-markets",
+      "name": "Bloomberg Markets",
+      "category": "Economía",
+      "url": "https://feeds.bloomberg.com/markets/news.rss",
+      "homepage": "https://www.bloomberg.com/markets"
+    },
+    {
+      "id": "economist-finance",
+      "name": "The Economist Finance",
+      "category": "Economía",
+      "url": "https://www.economist.com/finance-and-economics/rss.xml",
+      "homepage": "https://www.economist.com/finance-and-economics/"
+    },
+    {
+      "id": "economist-business",
+      "name": "The Economist Business",
+      "category": "Economía",
+      "url": "https://www.economist.com/business/rss.xml",
+      "homepage": "https://www.economist.com/business/"
+    },
+    {
+      "id": "nypost-business",
+      "name": "NY Post Business",
+      "category": "Economía",
+      "url": "https://nypost.com/business/feed/",
+      "homepage": "https://nypost.com/business/"
+    },
+    {
+      "id": "nyt-politics",
+      "name": "NY Times Politics",
+      "category": "Política",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
+      "homepage": "https://www.nytimes.com/section/politics"
+    },
+    {
+      "id": "bloomberg-politics",
+      "name": "Bloomberg Politics",
+      "category": "Política",
+      "url": "https://feeds.bloomberg.com/politics/news.rss",
+      "homepage": "https://www.bloomberg.com/politics"
+    },
+    {
+      "id": "nypost-politics",
+      "name": "NY Post Politics",
+      "category": "Política",
+      "url": "https://nypost.com/politics/feed/",
+      "homepage": "https://nypost.com/politics/"
+    },
+    {
+      "id": "economist-international",
+      "name": "The Economist International",
+      "category": "Política",
+      "url": "https://www.economist.com/international/rss.xml",
+      "homepage": "https://www.economist.com/international/"
+    },
+    {
       "id": "xataka",
       "name": "Xataka",
       "category": "Tecnología",
       "url": "https://www.xataka.com/feedburner.xml",
       "homepage": "https://www.xataka.com/"
+    },
+    {
+      "id": "nyt-technology",
+      "name": "NY Times Technology",
+      "category": "Tecnología",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+      "homepage": "https://www.nytimes.com/section/technology"
+    },
+    {
+      "id": "bloomberg-technology",
+      "name": "Bloomberg Technology",
+      "category": "Tecnología",
+      "url": "https://feeds.bloomberg.com/technology/news.rss",
+      "homepage": "https://www.bloomberg.com/technology"
+    },
+    {
+      "id": "economist-scitech",
+      "name": "The Economist Sci & Tech",
+      "category": "Tecnología",
+      "url": "https://www.economist.com/science-and-technology/rss.xml",
+      "homepage": "https://www.economist.com/science-and-technology/"
+    },
+    {
+      "id": "nypost-tech",
+      "name": "NY Post Tech",
+      "category": "Tecnología",
+      "url": "https://nypost.com/tech/feed/",
+      "homepage": "https://nypost.com/tech/"
+    },
+    {
+      "id": "techcrunch-startups",
+      "name": "TechCrunch Startups",
+      "category": "Emprendimiento",
+      "url": "https://techcrunch.com/category/startups/feed/",
+      "homepage": "https://techcrunch.com/category/startups/"
+    },
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch AI",
+      "category": "IA",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+    },
+    {
+      "id": "mit-tr-ai",
+      "name": "MIT Tech Review AI",
+      "category": "IA",
+      "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+      "homepage": "https://www.technologyreview.com/topic/artificial-intelligence/"
     }
   ]
 }

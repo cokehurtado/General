@@ -10,11 +10,17 @@ español.
 - **Agregador RSS/Atom propio** — el servidor consulta todas las fuentes en
   paralelo, las parsea (sin dependencias) y entrega un solo JSON unificado,
   ordenado de lo más reciente a lo más antiguo y sin duplicados.
-- **Fuentes chilenas y mundiales preconfiguradas** — Cooperativa, Emol,
-  El Mostrador, CIPER, The Clinic, BBC Mundo, DW, France 24, CNN en Español,
-  Noticias ONU, y más. Todas editables en `feeds.json`.
+- **Fuentes chilenas y mundiales preconfiguradas** — Chile: Emol, La Tercera,
+  Diario Financiero, El Mercurio, The Clinic, El Mostrador, Cooperativa,
+  ADN Radio y CIPER. Mundo: BBC Mundo y CNN en Español. Medios en inglés por
+  sección: NY Times, Bloomberg, The Economist, NY Post, TechCrunch y
+  MIT Technology Review. Todas editables en `feeds.json`.
+- **Fuentes sin RSS vía Google News** — medios que no publican RSS propio
+  (Diario Financiero, El Mercurio, ADN) entran mediante feeds de búsqueda de
+  Google News (`site:dominio`), con los títulos limpiados automáticamente.
 - **Categorías** — pestañas automáticas según las categorías de tus fuentes
-  (Chile, Mundo, Economía, Tecnología…), con contador de noticias.
+  (Chile, Mundo, Economía, Política, Tecnología, Emprendimiento, IA…), con
+  contador de noticias.
 - **Filtros útiles** — búsqueda por texto, filtro "Solo hoy", y chips para
   activar/desactivar fuentes individuales (se recuerda tu selección).
 - **Guardadas** ⭐ — marca noticias para leer después; quedan en `localStorage`.
@@ -57,6 +63,9 @@ Edita `news-portal/feeds.json`. Cada fuente tiene esta forma:
   las categorías que uses (por ejemplo "Deportes" o "Ciencia").
 - Casi cualquier sitio WordPress tiene feed en `/feed/`; muchos medios
   publican los suyos en `/rss`.
+- Para un medio **sin RSS propio**, usa un feed de búsqueda de Google News:
+  `https://news.google.com/rss/search?q=site:dominio.cl&hl=es-419&gl=CL&ceid=CL:es-419`
+  (el portal limpia solo los títulos de estos feeds).
 - Si una fuente aparece tachada en el portal, su feed cambió de URL o está
   caído: pasa el cursor sobre el chip para ver el error exacto.
 

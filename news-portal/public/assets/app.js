@@ -6,6 +6,8 @@
 
 (() => {
   const AUTO_REFRESH_MS = 10 * 60 * 1000;
+  // Orden preferido de las pestañas; categorías no listadas van al final, alfabéticamente.
+  const CATEGORY_ORDER = ["Chile", "Mundo", "Economía", "Política", "Tecnología", "Emprendimiento", "IA"];
   const SAVED_KEY = "news-portal:saved";
   const THEME_KEY = "news-portal:theme";
   const SOURCES_OFF_KEY = "news-portal:sources-off";
@@ -166,7 +168,15 @@
     for (const item of state.data.items) {
       counts.set(item.category, (counts.get(item.category) || 0) + 1);
     }
-    const categories = ["Todas", ...[...counts.keys()].sort((a, b) => a.localeCompare(b, "es"))];
+    const sorted = [...counts.keys()].sort((a, b) => {
+      const ia = CATEGORY_ORDER.indexOf(a);
+      const ib = CATEGORY_ORDER.indexOf(b);
+      if (ia !== -1 && ib !== -1) return ia - ib;
+      if (ia !== -1) return -1;
+      if (ib !== -1) return 1;
+      return a.localeCompare(b, "es");
+    });
+    const categories = ["Todas", ...sorted];
 
     els.tabs.innerHTML = "";
     for (const cat of categories) {

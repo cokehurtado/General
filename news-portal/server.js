@@ -66,12 +66,14 @@ async function fetchFeed(feed) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const xml = await decodeBody(res);
     const parsed = parseFeed(xml);
+    // Los feeds de Google News traen el medio al final del título ("Titular - Medio").
+    const isGoogleNews = /news\.google\./i.test(feed.url);
     const items = parsed.items.slice(0, MAX_ITEMS_PER_FEED).map((item, i) => ({
       id: `${feed.id}:${hashCode(item.link)}`,
       sourceId: feed.id,
       source: feed.name,
       category: feed.category || "General",
-      title: item.title,
+      title: isGoogleNews ? item.title.replace(/\s+-\s+[^-]+$/, "") : item.title,
       link: item.link,
       description: item.description,
       date: item.date,
