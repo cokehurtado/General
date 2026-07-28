@@ -1,0 +1,89 @@
+{
+  "comment": "Fuentes RSS del portal. Agrega, quita o edita libremente. Campos: id (único), name, category (Chile | Mundo | Economía | Tecnología u otra), url (feed RSS/Atom), homepage.",
+  "feeds": [
+    {
+      "id": "bbc-mundo",
+      "name": "BBC Mundo",
+      "category": "Mundo",
+      "url": "https://feeds.bbci.co.uk/mundo/rss.xml",
+      "homepage": "https://www.bbc.com/mundo"
+    },
+    {
+      "id": "dw-espanol",
+      "name": "DW Español",
+      "category": "Mundo",
+      "url": "https://rss.dw.com/xml/rss-sp-all",
+      "homepage": "https://www.dw.com/es/"
+    },
+    {
+      "id": "france24-es",
+      "name": "France 24",
+      "category": "Mundo",
+      "url": "https://www.france24.com/es/rss",
+      "homepage": "https://www.france24.com/es/"
+    },
+    {
+      "id": "cnn-espanol",
+      "name": "CNN en Español",
+      "category": "Mundo",
+      "url": "https://cnnespanol.cnn.com/feed/",
+      "homepage": "https://cnnespanol.cnn.com/"
+    },
+    {
+      "id": "onu-noticias",
+      "name": "Noticias ONU",
+      "category": "Mundo",
+      "url": "https://news.un.org/feed/subscribe/es/news/all/rss.xml",
+      "homepage": "https://news.un.org/es/"
+    },
+    {
+      "id": "el-mostrador",
+      "name": "El Mostrador",
+      "category": "Chile",
+      "url": "https://www.elmostrador.cl/feed/",
+      "homepage": "https://www.elmostrador.cl/"
+    },
+    {
+      "id": "cooperativa",
+      "name": "Cooperativa",
+      "category": "Chile",
+      "url": "https://www.cooperativa.cl/noticias/site/tax/port/all/rss_3___1.xml",
+      "homepage": "https://www.cooperativa.cl/"
+    },
+    {
+      "id": "emol-nacional",
+      "name": "Emol Nacional",
+      "category": "Chile",
+      "url": "https://www.emol.com/rss/rss.asp?canal=nacional",
+      "homepage": "https://www.emol.com/"
+    },
+    {
+      "id": "ciper",
+      "name": "CIPER Chile",
+      "category": "Chile",
+      "url": "https://www.ciperchile.cl/feed/",
+      "homepage": "https://www.ciperchile.cl/"
+    },
+    {
+      "id": "the-clinic",
+      "name": "The Clinic",
+      "category": "Chile",
+      "url": "https://www.theclinic.cl/feed/",
+      "homepage": "https://www.theclinic.cl/"
+    },
+    {
+      "id": "emol-economia",
+      "name": "Emol Economía",
+      "category": "Economía",
+      "url": "https://www.emol.com/rss/rss.asp?canal=economia",
+      "homepage": "https://www.emol.com/economia/"
+    },
+    {
+      "id": "xataka",
+      "name": "Xataka",
+      "category": "Tecnología",
+      "url": "https://www.xataka.com/feedburner.xml",
+      "homepage": "https://www.xataka.com/"
+    }
+  ]
+}

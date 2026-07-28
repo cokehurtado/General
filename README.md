@@ -1,3 +1,6 @@
+> Este repositorio también incluye **[📰 Mi Portal de Noticias](news-portal/README.md)**
+> — un portal personal de noticias de Chile y el mundo (`npm run news`).
+
 # 📷 Album Studio
 
 A clean, responsive front end for **uploading and organizing pictures in photo albums**.
