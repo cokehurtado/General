@@ -29,7 +29,10 @@
     errorState: $("#errorState"),
     errorText: $("#errorText"),
     retryBtn: $("#retryBtn"),
+    featured: $("#featured"),
     list: $("#newsList"),
+    ticker: $("#ticker"),
+    tickerTrack: $("#tickerTrack"),
     cardTpl: $("#newsCardTemplate")
   };
 
@@ -46,7 +49,7 @@
 
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    els.themeToggle.querySelector(".theme-icon").textContent = theme === "dark" ? "☀️" : "🌙";
+    els.themeToggle.querySelector(".theme-icon").textContent = theme === "dark" ? "☀" : "☾";
   }
 
   function initTheme() {
@@ -240,30 +243,31 @@
     }
   }
 
-  function renderCard(item) {
+  function renderCard(item, variant) {
     const node = els.cardTpl.content.firstElementChild.cloneNode(true);
-    const imgLink = node.querySelector(".news-card__imglink");
-    const img = node.querySelector(".news-card__img");
+    if (variant) node.classList.add(`story--${variant}`);
+    const imgLink = node.querySelector(".story__imglink");
+    const img = node.querySelector(".story__img");
     if (item.image) {
       imgLink.hidden = false;
       imgLink.href = item.link;
       img.src = item.image;
       img.addEventListener("error", () => { imgLink.hidden = true; });
     }
-    node.querySelector(".news-card__source").textContent = item.source;
-    node.querySelector(".news-card__category").textContent = item.category;
-    const time = node.querySelector(".news-card__time");
+    node.querySelector(".story__source").textContent = item.source;
+    node.querySelector(".story__cat").textContent = item.category;
+    const time = node.querySelector(".story__time");
     time.textContent = relativeTime(item.date);
     if (item.date) {
       time.dateTime = item.date;
       time.title = `${dayFmt.format(new Date(item.date))}, ${timeFmt.format(new Date(item.date))}`;
     }
-    const link = node.querySelector(".news-card__link");
+    const link = node.querySelector(".story__link");
     link.href = item.link;
     link.textContent = item.title;
-    node.querySelector(".news-card__desc").textContent = item.description;
+    node.querySelector(".story__desc").textContent = item.description;
 
-    const saveBtn = node.querySelector(".news-card__save");
+    const saveBtn = node.querySelector(".story__save");
     const paintSave = () => {
       const saved = state.saved.has(item.id);
       saveBtn.textContent = saved ? "★" : "☆";
@@ -289,11 +293,26 @@
 
   function renderList() {
     const items = visibleItems();
+    els.featured.innerHTML = "";
     els.list.innerHTML = "";
     els.empty.hidden = items.length > 0;
 
+    // Portada destacada: nota principal + 2 secundarias, solo sin búsqueda activa
+    // y fuera de "Guardadas" (ahí manda la lista completa).
+    const useFeatured =
+      state.category !== SAVED_TAB && !state.query.trim() && items.length >= 3;
+    els.featured.hidden = !useFeatured;
+    let rest = items;
+    if (useFeatured) {
+      const [lead, ...tail] = items;
+      els.featured.appendChild(renderCard(lead, "lead"));
+      els.featured.appendChild(renderCard(tail[0], "feat"));
+      els.featured.appendChild(renderCard(tail[1], "feat"));
+      rest = tail.slice(2);
+    }
+
     let lastDay = null;
-    for (const item of items) {
+    for (const item of rest) {
       const label = item.date ? dayLabel(item.date) : "Sin fecha";
       if (label !== lastDay) {
         lastDay = label;
@@ -306,12 +325,40 @@
     }
   }
 
+  function renderTicker() {
+    const latest = state.data.items.slice(0, 15);
+    els.ticker.hidden = latest.length === 0;
+    if (!latest.length) return;
+    els.tickerTrack.innerHTML = "";
+    // Contenido duplicado para que el desplazamiento sea un bucle continuo.
+    for (let round = 0; round < 2; round++) {
+      for (const item of latest) {
+        const a = document.createElement("a");
+        a.className = "ticker__item";
+        a.href = item.link;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.tabIndex = -1;
+        const source = document.createElement("b");
+        source.textContent = item.source;
+        a.appendChild(source);
+        a.appendChild(document.createTextNode(" " + item.title));
+        els.tickerTrack.appendChild(a);
+        const sep = document.createElement("span");
+        sep.className = "ticker__sep";
+        sep.textContent = "▪";
+        els.tickerTrack.appendChild(sep);
+      }
+    }
+  }
+
   function renderAll() {
     if (!state.data) return;
     els.loading.hidden = true;
     els.updatedAt.textContent = `Actualizado ${relativeTime(state.data.generatedAt)}`;
     renderTabs();
     renderChips();
+    renderTicker();
     renderList();
   }
 

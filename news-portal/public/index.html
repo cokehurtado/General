@@ -5,51 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portal de noticias personal: lo más importante de Chile y el mundo, en un solo lugar." />
   <title>Mi Portal de Noticias</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%B0%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='72' font-size='60' font-family='Arial' font-weight='bold' fill='%23fff' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
-  <header class="app-header">
-    <div class="app-header__brand">
-      <span class="app-header__logo" aria-hidden="true">📰</span>
-      <div>
-        <h1 class="app-header__title">Mi Portal de Noticias</h1>
-        <p id="todayLine" class="app-header__subtitle">—</p>
+  <header class="masthead">
+    <div class="masthead__inner">
+      <div class="masthead__brand">
+        <h1 class="masthead__title">Mi Portal<span class="masthead__bullet">●</span>Noticias</h1>
+        <p id="todayLine" class="masthead__date">—</p>
       </div>
-    </div>
-    <div class="app-header__actions">
-      <span id="updatedAt" class="updated-at" title="Última actualización">—</span>
-      <button id="refreshBtn" class="btn btn--ghost" type="button" title="Volver a consultar las fuentes">
-        <span class="refresh-icon" aria-hidden="true">↻</span> Actualizar
-      </button>
-      <button id="themeToggle" class="btn btn--icon" type="button" aria-label="Cambiar tema" title="Cambiar tema">
-        <span class="theme-icon">🌙</span>
-      </button>
+      <div class="masthead__actions">
+        <span id="updatedAt" class="updated-at" title="Última actualización">—</span>
+        <button id="refreshBtn" class="btn" type="button" title="Volver a consultar las fuentes">
+          <span class="refresh-icon" aria-hidden="true">↻</span> Actualizar
+        </button>
+        <button id="themeToggle" class="btn btn--icon" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+          <span class="theme-icon">◐</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <nav class="toolbar" aria-label="Filtros">
-    <div id="categoryTabs" class="tabs" role="tablist" aria-label="Categorías"></div>
-    <div class="toolbar__right">
-      <label class="toggle">
-        <input id="todayOnly" type="checkbox" />
-        <span>Solo hoy</span>
-      </label>
-      <input
-        id="searchInput"
-        class="input input--search"
-        type="search"
-        placeholder="Buscar noticias…"
-        aria-label="Buscar noticias por texto"
-        autocomplete="off"
-      />
+  <div id="ticker" class="ticker" aria-hidden="true" hidden>
+    <span class="ticker__label">Últimas</span>
+    <div class="ticker__viewport">
+      <div id="tickerTrack" class="ticker__track"></div>
+    </div>
+  </div>
+
+  <nav class="navbar" aria-label="Categorías">
+    <div class="navbar__inner">
+      <div id="categoryTabs" class="tabs" role="tablist" aria-label="Categorías"></div>
+      <div class="navbar__right">
+        <label class="toggle">
+          <input id="todayOnly" type="checkbox" />
+          <span>Solo hoy</span>
+        </label>
+        <input
+          id="searchInput"
+          class="input input--search"
+          type="search"
+          placeholder="Buscar…"
+          aria-label="Buscar noticias por texto"
+          autocomplete="off"
+        />
+      </div>
     </div>
   </nav>
 
-  <div id="sourceChips" class="source-chips" aria-label="Fuentes"></div>
-  <div id="sourceErrors" class="source-errors" hidden></div>
+  <div class="belt">
+    <div id="sourceChips" class="source-chips" aria-label="Fuentes"></div>
+    <div id="sourceErrors" class="source-errors" hidden></div>
+  </div>
 
   <main id="main" class="content">
     <div id="loading" class="loading">
@@ -57,16 +67,17 @@
       <p>Consultando las fuentes de noticias…</p>
     </div>
     <div id="emptyState" class="empty-state" hidden>
-      <div class="empty-state__art" aria-hidden="true">🔍</div>
+      <div class="empty-state__art" aria-hidden="true">◻</div>
       <h3 class="empty-state__title">Sin resultados</h3>
       <p class="empty-state__text">Prueba con otro filtro o término de búsqueda.</p>
     </div>
     <div id="errorState" class="empty-state" hidden>
-      <div class="empty-state__art" aria-hidden="true">⚠️</div>
+      <div class="empty-state__art" aria-hidden="true">▲</div>
       <h3 class="empty-state__title">No se pudieron cargar las noticias</h3>
       <p id="errorText" class="empty-state__text"></p>
       <button id="retryBtn" class="btn" type="button">Reintentar</button>
     </div>
+    <ul id="featured" class="featured" role="list" hidden></ul>
     <ul id="newsList" class="news-list" role="list"></ul>
   </main>
 
@@ -78,22 +89,21 @@
   </footer>
 
   <template id="newsCardTemplate">
-    <li class="news-card" role="listitem">
-      <a class="news-card__imglink" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer" hidden>
-        <img class="news-card__img" alt="" loading="lazy" />
-      </a>
-      <div class="news-card__body">
-        <div class="news-card__meta">
-          <span class="news-card__source"></span>
-          <span class="news-card__category"></span>
-          <time class="news-card__time"></time>
-        </div>
-        <h3 class="news-card__title">
-          <a class="news-card__link" target="_blank" rel="noopener noreferrer"></a>
+    <li class="story" role="listitem">
+      <div class="story__body">
+        <p class="story__kicker">
+          <span class="story__source"></span><span class="story__cat"></span>
+        </p>
+        <h3 class="story__headline">
+          <a class="story__link" target="_blank" rel="noopener noreferrer"></a>
         </h3>
-        <p class="news-card__desc"></p>
+        <p class="story__desc"></p>
+        <p class="story__meta"><time class="story__time"></time></p>
       </div>
-      <button class="news-card__save" type="button" aria-label="Guardar para leer después" title="Guardar">☆</button>
+      <a class="story__imglink" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener noreferrer" hidden>
+        <img class="story__img" alt="" loading="lazy" />
+      </a>
+      <button class="story__save" type="button" aria-label="Guardar para leer después" title="Guardar">☆</button>
     </li>
   </template>
 

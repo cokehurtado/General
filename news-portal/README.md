@@ -32,6 +32,10 @@ español.
   motivo y el resto del portal sigue funcionando.
 - **Codificación correcta** — decodifica feeds en UTF-8 e ISO-8859-1 (varios
   medios chilenos aún usan Latin-1), así los acentos y la ñ salen bien.
+- **Fachada estilo prensa financiera** — masthead negro, cinta de titulares en
+  movimiento (pausable con el cursor), portada con nota principal destacada y
+  dos secundarias, filas densas separadas por líneas finas y tipografía en
+  mayúsculas para secciones y fuentes.
 - **Tema claro y oscuro**, diseño responsivo y accesible.
 
 ## Cómo usarlo
